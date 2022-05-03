@@ -29,7 +29,7 @@ Y agrega entre las lineas de server { }  lo siguiente:
 	}
 ```
 En donde **moove** es el tema que estás usando en moodle, podría ser cualquier otro y **americana** la carpeta donde se clonó el repositorio.<br><br>
-5) Edita el archivo americana/src/controladores/ControladorCarrito.php y coloca los datos de un usuario que tenga permisos para crear usuarios pero que no sea el administrador principal en la linea 58 donde aparece invocada la funcion **iniciarSesionMoodle(username, password)**. <br><br>
+5) Edita el archivo **americana/src/controladores/ControladorUsuario.php** y coloca los datos de un usuario que tenga permisos para crear usuarios pero que no sea el administrador principal en la linea 58 donde aparece invocada la funcion **iniciarSesionMoodle(username, password)**. <br><br>
 6) Entra a la edición de las categorías de cursos y crea una categoría y colócale en **Número ID de la categoría** un 1. El programa buscará la categoria con este número de id y asumirá que esta es la categoría cuyo cursos en su interior se quieren ofertar.<br><br>
 7) Deberás agregar subcategorías de un solo nivel dentro de la categoría que creaste en el paso anterior, estas categorías aparecerán en la navegación del landing page, y los cursos dentro de ella serán los mostrados.<br><br>
 8) Crea cursos dentro de las subcategorías creadas en el punto anterior y colócales una fecha de inicio futura, todos los cursos que tengan una fecha de inicio futura serán ofertados, los cursos que alcancen la fecha de inicio dejarán de mostrarse en la landing page.<br><br>
