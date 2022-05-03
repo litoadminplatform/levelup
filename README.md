@@ -28,6 +28,12 @@ Y agrega entre las lineas de server { }  lo siguiente:
   		rewrite ^/info/(.+)$ /theme/moove/americana/index.php?url=$1 last;
 	}
 ```
+En apache crea un archivo .htaccess en el root de tu moodle y agregale la siguientes lineas:
+```
+RewriteEngine On
+RewriteRule ^info/(.+)$ theme/moove/americana/index.php?url=$1 [QSA,L]
+```
+
 En donde **moove** es el tema que estás usando en moodle, podría ser cualquier otro y **americana** la carpeta donde se clonó el repositorio.<br><br>
 5) Edita el archivo **americana/src/controladores/ControladorUsuario.php** y coloca los datos de un usuario que tenga permisos para crear usuarios pero que no sea el administrador principal en la linea 58 donde aparece invocada la funcion **iniciarSesionMoodle(username, password)**. <br><br>
 6) Entra a la edición de las categorías de cursos y crea una categoría y colócale en **Número ID de la categoría** un 1. El programa buscará la categoria con este número de id y asumirá que esta es la categoría cuyo cursos en su interior se quieren ofertar.<br><br>
