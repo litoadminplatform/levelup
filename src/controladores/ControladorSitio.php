@@ -230,7 +230,8 @@
 			if(isset($_POST['urlredireccionar'])){
 				if(filter_var($_POST['urlredireccionar'], FILTER_VALIDATE_URL)) {
 					$respuesta['estado'] = 'ok';
-					$this->sesion->setDatoSesion('urlreedireccionar', $_POST['urlredireccionar']);
+					$this->sesion->setDatoSesion('urlreedireccionar', $_POST['urlredireccionar']);					
+					setcookie('urlreedireccionar', $_POST['urlredireccionar'], time() + (86400 * 30), "/");
 				}
 			}
 			return $respuesta;
@@ -243,9 +244,16 @@
 			$respuesta['datos']['reedireccionar'] = '';						
 			
 			//si hay algun lugar para reedireccionar enviamos el dato.
-			if($this->sesion->getDatoSesion('urlreedireccionar')!=''){				
-				$respuesta['datos']['reedireccionar'] = $this->sesion->getDatoSesion('urlreedireccionar');
-				$this->sesion->setDatoSesion('urlreedireccionar', '');
+			if($this->sesion->getDatoSesion('urlreedireccionar')!='' || isset($_COOKIE['urlreedireccionar'])){	
+				if($this->sesion->getDatoSesion('urlreedireccionar')!=''){
+					$respuesta['datos']['reedireccionar'] = $this->sesion->getDatoSesion('urlreedireccionar');
+					$this->sesion->setDatoSesion('urlreedireccionar', '');
+				}else{
+					if($_COOKIE['urlreedireccionar']!=''){
+						$respuesta['datos']['reedireccionar'] = $_COOKIE['urlreedireccionar'];
+						setcookie('urlreedireccionar', '', time() - 3600, "/");
+					}
+				}												
 			}
 			
 			return $respuesta;
