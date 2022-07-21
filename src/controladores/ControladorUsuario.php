@@ -44,16 +44,18 @@
 				//if(isset($_POST['nombres']) $filtro->soloLetrasYespacios(($_POST['nombres']) && $filtro->limiteTamano($_POST['nombres'], 4, 64)){
 				//	if(isset($_POST['nombres']) $filtro->soloLetrasYespacios(($_POST['nombres']) && $filtro->limiteTamano($_POST['nombres'], 4, 64)){
 					
-				if(isset($_POST['nombres']) && $_POST['apellidos'] && $_POST['correo']  && $_POST['identificacion'] && $_POST['telefono']){
+				if(isset($_POST['nombres']) && isset($_POST['apellidos']) && isset($_POST['correo'])  && isset($_POST['identificacion']) && isset($_POST['telefono']) && isset($_POST['direccion']) && isset($_POST['ciudad'])){
 					$_POST['nombres'] = trim($_POST['nombres']);
 					$_POST['apellidos'] = trim($_POST['apellidos']);
 					$_POST['correo'] = strtolower($_POST['correo']);
 					$_POST['identificacion'] = trim($_POST['identificacion']);
 					$_POST['telefono'] = trim($_POST['telefono']);
+					$_POST['direccion'] = trim($_POST['direccion']);
+					$_POST['ciudad'] = trim($_POST['ciudad']);
 					
 					$usuario = new Usuario($this->conexion);
 					
-					$re = $usuario->validaDatosUsuario(1, $_POST['nombres'], $_POST['apellidos'], $_POST['correo'], $_POST['identificacion'], $_POST['telefono']);
+					$re = $usuario->validaDatosUsuario(1, $_POST['nombres'], $_POST['apellidos'], $_POST['correo'], $_POST['identificacion'], $_POST['telefono'], $_POST['direccion'], $_POST['ciudad']);
 					if($re['error']=='no'){
 						if($this->sesion->iniciarSesionMoodle('usercreator', 'ovsZQjSwsHif')){
 							require_once($CFG->dirroot.'/user/externallib.php');
@@ -68,6 +70,7 @@
 								'idnumber' => $re['idnumber'],
 								'firstname' => $re['nombresv'],
 								'lastname' => $re['apellidosv'],
+								'institution' => $re['ciudadv'].' '.$re['direccionv'],
 								'middlename' => '',
 								'lastnamephonetic' => '',
 								'firstnamephonetic' => '',

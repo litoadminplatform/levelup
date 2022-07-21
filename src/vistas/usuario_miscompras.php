@@ -150,6 +150,7 @@
 												?>
 													<th scope="col">Cliente</th>
 													<th scope="col">Teléfono</th>													
+													<th scope="col">Dirección</th>
 												<?php
 											}										
 										?>
@@ -190,6 +191,7 @@
 															?>
 																<td><?php echo $cu['firstname']; ?> <?php echo $cu['lastname']; ?></td>		
 																<td><?php echo $cu['phone1']; ?></td>	
+																<td><?php echo $cu['institution']; ?></td>	
 															<?php
 														}										
 													?>

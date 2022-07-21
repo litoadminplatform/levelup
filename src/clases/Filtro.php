@@ -192,6 +192,24 @@ class Filtro
 		return $retornar;
 	}
 	
+	
+	/*TRUE:FALSE  sirve para validar nombres de curso*/
+	public function soloDireccion(&$data){
+		$retornar=true;	    		
+		if($this->setData($data)){	
+			$data=trim($data);			
+			$permitidos = "#abcdefghijklmnnñopqrstuvwxyzABCDEFGHIJKLMNÑñOPQRSTUVWXYZáéíóúÁÉÍÓ Ú 1234567890-";
+			for ($i=0; $i<strlen($data); $i++){		  
+				if (strpos($permitidos, substr($data,$i,1))===false){
+					$retornar=false;				
+				}		    
+			}
+		}else{
+			$retornar=false;
+		}	
+		return $retornar;
+	}
+	
 	/*TRUE:FALSE  sirve para validar nombres, a diferencia de la anterior incluye otros caracteres admitidos para un nombre como el guion*/
 	public function soloLetrasYespaciosEspecial(&$data){
 		$retornar=true;	    		

@@ -6,6 +6,7 @@ class Usuario{
 	private $lastname = false;
 	private $email = false;
 	private $idnumber = false;
+	private $institution = false;
 	private $suspended = false;
 	private $deleted = false;
 	private $lastaccess = false;	
@@ -32,7 +33,7 @@ class Usuario{
 		
 		
 		if($idusuario && is_numeric($idusuario)){ 
-			$sql = 'select id, username, firstname, lastname, email, idnumber, suspended, deleted, firstaccess, lastaccess, picture, city, lang, description, password, policyagreed
+			$sql = 'select id, username, firstname, lastname, email, idnumber, institution, suspended, deleted, firstaccess, lastaccess, picture, city, lang, description, password, policyagreed
 					from mdl_user
 					where id=\''.$idusuario.'\'';
 			$result_buscar = $this->conexion->consultar($sql);	
@@ -43,6 +44,7 @@ class Usuario{
 				$this->lastname = $r['lastname'];
 				$this->email = $r['email'];
 				$this->idnumber = $r['idnumber'];
+				$this->institution = $r['institution'];
 				$this->suspended = $r['suspended'];
 				$this->deleted = $r['deleted'];
 				$this->firstaccess = $r['firstaccess'];
@@ -238,7 +240,7 @@ class Usuario{
 		$idpais: envie 0 para que se tome el pais de la estacion automaticmaente y no haya que tener que hacer comparaciones
 		Advertencia se debe haber incluido el archivo config.php para que funcione correctamente. (hace uso de la variable global DB)		
 	*/
-	public function validaDatosUsuario($numerolinea, &$nombres, &$apellidos, &$email, &$identificacion, &$telefono){
+	public function validaDatosUsuario($numerolinea, &$nombres, &$apellidos, &$email, &$identificacion, &$telefono, &$direccion, &$ciudad){
 		$reportelinea = array();
 		global $DB;
 		if(!$this->id){
@@ -246,7 +248,7 @@ class Usuario{
 			$filtro = new Filtro();
 			$sitio = new Sitio($this->conexion);						
 									
-			$reportelinea = array('numerolinea'=>$numerolinea, 'error'=>'no', 'errorgeneral'=>'', 'username'=>'', 'idnumber'=>'', 'nombresv'=>'', 'nombrese'=>'', 'apellidosv'=>'', 'apellidose'=>'', 'emailv'=>'', 'emaile'=>'', 'identificacionv'=>'', 'identificacione'=>'');
+			$reportelinea = array('numerolinea'=>$numerolinea, 'error'=>'no', 'errorgeneral'=>'', 'username'=>'', 'idnumber'=>'', 'nombresv'=>'', 'nombrese'=>'', 'apellidosv'=>'', 'apellidose'=>'', 'emailv'=>'', 'emaile'=>'', 'identificacionv'=>'', 'identificacione'=>'', 'direccion'=>'', 'direccionv'=>'', 'direccione'=>'', 'ciudad'=>'', 'ciudadv'=>'', 'ciudade'=>'');
 			
 			
 			//valida nombres
@@ -267,8 +269,14 @@ class Usuario{
 			//valida apellidos
 			$apellidos = mb_strtoupper($apellidos, 'UTF-8');
 			if($apellidos!=''){
-				if($filtro->soloLetrasYespaciosEspecial($apellidos) && $filtro->limiteTamano($apellidos, 2, 256)){
-					$reportelinea['apellidosv'] = $apellidos;
+				if($filtro->soloLetrasYespaciosEspecial($apellidos) && $filtro->limiteTamano($apellidos, 2, 128)){
+					if(strpos($apellidos, ' ')!==false){
+						$reportelinea['apellidosv'] = $apellidos;
+					}else{
+						$reportelinea['apellidosv'] = $apellidos;
+						$reportelinea['apellidose'] = 'Deben ser los dos apellidos.';
+						$reportelinea['error'] = 'si';
+					}
 				}else{
 					$reportelinea['apellidosv'] = $apellidos;
 					$reportelinea['apellidose'] = 'Apellidos inválidos.';
@@ -325,7 +333,7 @@ class Usuario{
 				$reportelinea['error'] = 'si';
 			}
 			
-			//identificacion
+			//telefono
 			if($telefono!=''){
 				if($filtro->limiteTamano($telefono, 10, 10)){
 					$reportelinea['telefono'] = $telefono;
@@ -349,7 +357,61 @@ class Usuario{
 				$reportelinea['telefonoe'] = 'Dato vacío';
 				$reportelinea['error'] = 'si';
 			}
-						
+			
+			
+			//direccion
+			$direccion = mb_strtoupper($direccion, 'UTF-8');
+			if($direccion!=''){
+				if($filtro->limiteTamano($direccion, 10, 128)){
+					$reportelinea['direccion'] = $direccion;
+					if($direccion!==false){
+						if($filtro->soloDireccion($direccion)) {
+							$reportelinea['direccionv'] = $direccion;
+						}else{
+							$reportelinea['direccionv'] = $direccion;
+							$reportelinea['direccione'] = 'Dirección con caracteres inválidos.';
+							$reportelinea['error'] = 'si';
+						}												
+					}else{
+						$reportelinea['direccione'] = 'Dato erróneo';
+						$reportelinea['error'] = 'si';
+					}
+				}else{
+					$reportelinea['direccione'] = 'Dirección muy corta.';
+					$reportelinea['error'] = 'si';
+				}
+			}else{
+				$reportelinea['direccione'] = 'Dato vacío';
+				$reportelinea['error'] = 'si';
+			}
+			
+			//ciudad
+			$ciudad = mb_strtoupper($ciudad, 'UTF-8');
+			if($ciudad!=''){
+				if($filtro->limiteTamano($ciudad, 4, 32)){
+					$reportelinea['ciudad'] = $ciudad;
+					if($ciudad!==false){
+						if($filtro->soloLetrasYespacios($ciudad)){
+							$reportelinea['ciudadv'] = $ciudad;
+						}else{
+							$reportelinea['ciudadv'] = $ciudad;
+							$reportelinea['ciudade'] = 'Ciudad con caracteres inválidos.';
+							$reportelinea['error'] = 'si';
+						}												
+					}else{
+						$reportelinea['ciudade'] = 'Dato erróneo';
+						$reportelinea['error'] = 'si';
+					}
+				}else{
+					$reportelinea['ciudade'] = 'Ciudad muy corta.';
+					$reportelinea['error'] = 'si';
+				}
+			}else{
+				$reportelinea['ciudade'] = 'Dato vacío';
+				$reportelinea['error'] = 'si';
+			}
+		
+			
 			//ultimas conficiones:
 			if($reportelinea['error']=='no'){  //si no hubo error.							
 				//creamos el username
@@ -371,7 +433,7 @@ class Usuario{
 
 	public function getDato($campo){
 		if($this->id){
-			$campovalidos = array('id', 'username', 'firstname', 'lastname', 'email', 'idnumber', 'suspended', 'deleted', 'firstaccess', 'lastaccess', 'picture', 'city', 'lang', 'description', 'hashp', 'policyagreed', 'areaspreferidas');
+			$campovalidos = array('id', 'username', 'firstname', 'lastname', 'email', 'idnumber', 'institution', 'suspended', 'deleted', 'firstaccess', 'lastaccess', 'picture', 'city', 'lang', 'description', 'hashp', 'policyagreed', 'areaspreferidas');
 			if(in_array($campo, $campovalidos)){
 				return $this->$campo;								
 			}else{
@@ -393,7 +455,7 @@ class Usuario{
 					if(json_last_error()===JSON_ERROR_NONE){
 						$valido = true;
 					}	
-				break;
+				break;				
 				case 'lang':
 					if($valor!=''){
 						$valido = true;

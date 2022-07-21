@@ -39,10 +39,10 @@
 		inyectar+='<form id="formregistro" class="signup-form counter_form_content d-flex flex-column align-items-center justify-content-center" action="#" style="margin-bottom:25px;">';
 			inyectar+='<h4>Regístrate</h4>';
 			
-			inyectar+='<p>Nombres</p>';
+			inyectar+='<p>Nombres <span style="color:blue; font-size:10px;">(Aparecerá en certificados)</span></p>';
 			inyectar+='<input type="text" id="nombres" name="nombres" class="campologin" placeholder="" required="required" maxlength="64" style="text-transform: uppercase;">';
 			
-			inyectar+='<p>Apellidos</p>';
+			inyectar+='<p>Apellidos <span style="color:blue; font-size:10px;">(Aparecerá en certificados)</span></p>';
 			inyectar+='<input type="text" id="apellidos" name="apellidos" class="campologin" placeholder="" required="required" maxlength="64" style="text-transform: uppercase;">';
 			
 			inyectar+='<p>Correo electrónico</p>';
@@ -50,6 +50,12 @@
 						
 			inyectar+='<p>Número de identificación</p>';
 			inyectar+='<input type="text" id="identificacion" name="identificacion" class="campologin" placeholder="" required="required"  minlength="6" maxlength="32" style="text-transform: lowercase;">';
+						
+			inyectar+='<p>Ciudad <span style="color:blue; font-size:10px;">(Para las facturas en las compras)</span></p>';
+			inyectar+='<input type="text" id="ciudad" name="ciudad" class="campologin" placeholder="" required="required" maxlength="32" style="text-transform: uppercase;">';			
+						
+			inyectar+='<p>Dirección <span style="color:blue; font-size:10px;">(Para las facturas en las compras)</span></p>';
+			inyectar+='<input type="text" id="direccion" name="direccion" class="campologin" placeholder="" required="required" maxlength="128" style="text-transform: uppercase;">';
 			
 			inyectar+='<p>Teléfono móvil</p>';
 			inyectar+='<input type="text" id="telefono" name="telefono" class="campologin" placeholder="" required="required"  minlength="10" maxlength="10" style="text-transform: lowercase;">';
@@ -107,13 +113,21 @@
 												if(datos.identificacione!=''){
 													$('#registroerror').html(datos.identificacione).show();
 												}else{
-													if(datos.telefonoe!=''){
-														$('#registroerror').html(datos.telefonoe).show();
+													if(datos.ciudade!=''){
+														$('#registroerror').html(datos.ciudade).show();
 													}else{
-														if(datos.errorgeneral!=''){
-															$('#registroerror').html(datos.errorgeneral).show();
-														}else{	
-															$('#registroerror').html('Error desconocido al registarse, por favor comunicar esto al sistema de soporte.').show();	
+														if(datos.direccione!=''){
+															$('#registroerror').html(datos.direccione).show();
+														}else{													
+															if(datos.telefonoe!=''){
+																$('#registroerror').html(datos.telefonoe).show();
+															}else{
+																if(datos.errorgeneral!=''){
+																	$('#registroerror').html(datos.errorgeneral).show();
+																}else{	
+																	$('#registroerror').html('Error desconocido al registarse, por favor comunicar esto al sistema de soporte.').show();	
+																}
+															}
 														}
 													}
 												}	

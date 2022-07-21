@@ -191,7 +191,7 @@ class Factura{
 		
 		
 			$startfrom = $pagina*10;
-			$sql='select a.id, a.idusuario, c.firstname, c.lastname, c.idnumber, c.phone1, a.idcurso, b.fullname, a.consecutivo, a.fechacarritogenerado, a.fechafacturagenerada, a.fechacheckout, a.total, a.estado, a.tituloultimarespuesta, a.descripcionultimarespuesta, a.respuestadato1, a.respuestadato2, a.respuestadato3, a.respuestadato4
+			$sql='select a.id, a.idusuario, c.firstname, c.lastname, c.idnumber, c.phone1, c.institution, a.idcurso, b.fullname, a.consecutivo, a.fechacarritogenerado, a.fechafacturagenerada, a.fechacheckout, a.total, a.estado, a.tituloultimarespuesta, a.descripcionultimarespuesta, a.respuestadato1, a.respuestadato2, a.respuestadato3, a.respuestadato4
 					from factura a, mdl_course b, mdl_user c
 					where a.idcurso=b.id and a.idusuario=c.id '.$inyectar.' 
 					order by a.fechacarritogenerado desc
@@ -205,6 +205,7 @@ class Factura{
 											'lastname'=>$row_d['lastname'],
 											'idnumber'=>$row_d['idnumber'],
 											'phone1'=>$row_d['phone1'],
+											'institution'=>$row_d['institution'],
 											'idcurso'=>$row_d['idcurso'],											
 											'fullname'=>$row_d['fullname'],
 											'consecutivo'=>$row_d['consecutivo'],
