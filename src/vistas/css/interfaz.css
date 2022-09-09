@@ -6,11 +6,11 @@
 	  width: auto;
 	  max-width: 500px;
 	  margin: 20px auto;
-	  -moz-border-radius: 5px; 
-		-webkit-border-radius: 5px; 
+	  -moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
 		border-radius: 5px;
 	}
-	
+
 	/* Magnific Popup CSS */
 	.mfp-bg {
 	  top: 0;
@@ -389,18 +389,18 @@
   width: 100%;
   height: 30px;
   background-color: #ddd;
-  
+
 	/*-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 	border-radius: 4px;*/
-	
+
 }
 
 .myBar {
   position: absolute;
   width: 7%;
   height: 100%;
-  background-color: #0064DD;  /*originalmente: #4CAF50*/  
+  background-color: #0064DD;  /*originalmente: #4CAF50*/
   /*-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 	border-radius: 4px;  */
@@ -418,15 +418,15 @@
   position: relative;
   overflow: hidden;
 }
-.sidebar-box .read-more { 
-  position: absolute; 
-  bottom: 0px; 
+.sidebar-box .read-more {
+  position: absolute;
+  bottom: 0px;
   left: 0;
-  width: 100%; 
-  text-align: right; 
-  margin: 0; padding: 0px 0; 
-	
-  
+  width: 100%;
+  text-align: right;
+  margin: 0; padding: 0px 0;
+
+
   /* "transparent" only works here because == rgba(0,0,0,0) */
   background-image: linear-gradient(to bottom, transparent, #E9F0F5);
 }
@@ -443,7 +443,7 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     box-sizing: border-box;
-	
+
 }
 
 /*ocultar los botones de descargas de los pdf*/
@@ -515,7 +515,7 @@
 #corner-slider .close{
     position:absolute;right:24px;top:18px;cursor:pointer;font-size:16px;
 	display:inline-block;z-index:1002
-} 
+}
 #corner-slider .fl{
     float:left
 }
@@ -545,15 +545,15 @@
 	bottom:0px;
 	width:350px;
 	z-index:1045;
-	
+
 	-webkit-box-shadow: -5px -5px 24px -7px rgba(0,0,0,0.6);
 	-moz-box-shadow: -5px -5px 24px -7px rgba(0,0,0,0.6);
 	box-shadow: -5px -5px 24px -7px rgba(0,0,0,0.6);
 
-	
+
 }
 
-.chat_body{	
+.chat_body{
 	background:#F0F0F0;
 	height:150px;
 	padding:10px 10px;
@@ -567,7 +567,7 @@
 	font-weight:bold;
 	cursor:pointer;
 	/*border-radius:5px 5px 0px 0px;*/
-	font-family: "Muli";	
+	font-family: "Muli";
 	/*float:right;*/
 }
 
@@ -576,16 +576,16 @@
 		/*left:20px;*/
 		-webkit-box-shadow: none;
 		-moz-box-shadow:  none;
-		box-shadow:  none;		
+		box-shadow:  none;
 	}
 	.chat_head{
 		width:50px;
 		float:right;
-		
+
 		-webkit-box-shadow: -5px -5px 24px -7px rgba(0,0,0,0.6);
 		-moz-box-shadow: -5px -5px 24px -7px rgba(0,0,0,0.6);
 		box-shadow: -5px -5px 24px -7px rgba(0,0,0,0.6);
-		
+
 	}
 	#textointroayuda{
 		display:none;
@@ -593,7 +593,7 @@
 	#interrogacionayuda{
 		display:block !important;
 	}
-}	
+}
 
 /*las tarjetas para las insignias*/
 
@@ -602,7 +602,7 @@
 
 #containerx { display: block; /*margin-top: 55px;*/ }
 #containerx ul { }
-#containerx ul a li { 
+#containerx ul a li {
 	display: block;
 	width: 100%;
 	/*height: 90px;*/
@@ -622,7 +622,7 @@
 
 #containerx ul li .price { position: absolute; bottom: 10px; left: 90px; font-size: 0.9em; font-weight: bold; color: #6ea247; }
 
-#containerx ul li img.thumbnailx { 
+#containerx ul li img.thumbnailx {
 	background: #fff;
 	display: inline-block;
 	float: left;
@@ -642,7 +642,7 @@
 		filter: alpha(opacity=0.2);  	/*por mi*/
 }
 .imgganado{
-	background: #D2FFE9;			
+	background: #D2FFE9;
 }
 
 #containerx ul a { text-decoration: none; }
@@ -659,17 +659,17 @@
 }
 
 /** top header bar **/
-#headerlist { 
+#headerlist {
 	display: block;
-	position: fixed; 
+	position: fixed;
 	top: 0;
 	z-index: 9999;
 	height: 55px;
 	width: 100%;
 	max-width: 800px;
 	border-bottom: 1px solid #262422;
-	-webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4); 
-	-moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4); 
+	-webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+	-moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
 	background: #5a5955;
 	background: -moz-linear-gradient(top,  #5a5955 0%, #51504c 50%, #494744 51%, #3f3d3a 100%);
@@ -687,7 +687,7 @@
 /** basic media queries **/
 @media only screen and (max-width: 480px) {
 	#containerx ul li h2 { font-size: 1.75em; }
-	
+
 	#containerx ul li img.thumbnailx { margin-top: 2px; }
 }
 
@@ -696,7 +696,7 @@
 }
 .clearfixx:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
 .clearfixx { display: inline-block; }
- 
+
 html[xmlns] .clearfixx { display: block; }
 * html .clearfixx { height: 1%; }
 
@@ -740,7 +740,7 @@ html[xmlns] .clearfixx { display: block; }
 		border: 0;
 		font-size: 100%;
 		font: inherit;
-		vertical-align: baseline;		
+		vertical-align: baseline;
 	}
 
 	.ulmlateral { list-style: none }
@@ -748,8 +748,8 @@ html[xmlns] .clearfixx { display: block; }
 
 	.amlateral{ text-decoration: none; }
 	.limlateral a:hover{ text-decoration: none; }
-	
-	
+
+
 
 	/**
 	 * Hidden fallback
@@ -857,7 +857,7 @@ html[xmlns] .clearfixx { display: block; }
 	  transform: rotate(90deg);
 	}
 /*
-	CSS PAR HACER ROTAR LA CARTA DEL CHILITO AL GANAR		
+	CSS PAR HACER ROTAR LA CARTA DEL CHILITO AL GANAR
 */
 
 .scene_chulito {
@@ -902,7 +902,7 @@ html[xmlns] .clearfixx { display: block; }
   transform: rotateY(180deg);
 }
 
-	
+
 /*
 	CSS PARA EL NUEVO PERFIL DEL DASHBOARD
 */
@@ -913,7 +913,7 @@ html[xmlns] .clearfixx { display: block; }
   padding: 0 !important;
   width: 100%;  /*originalmente 90%*/
   background-color: #fff;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.10);  
+  box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.10);
 }
 
 .headerdash {		/*a borrar cuando se quite el hedaer*/
@@ -938,8 +938,8 @@ html[xmlns] .clearfixx { display: block; }
 @media (max-width:800px) {
   .headerdash {
     height: 150px;
-  } 
-  
+  }
+
   .headerdash i {
     right: -90%;
   }
@@ -980,7 +980,7 @@ html[xmlns] .clearfixx { display: block; }
   .activedash {
     right: calc(50% - 60px);
     top: 26px;  /*originalmente 50px*/
-  } 
+  }
 }
 
 .namedash {
@@ -1040,7 +1040,7 @@ html[xmlns] .clearfixx { display: block; }
   font-family: "Open Sans";
   padding-bottom: 25px;
   border-bottom: 1px solid #ededed;
-  font-family: "Muli";  
+  font-family: "Muli";
 }
 
 .socialdash {
@@ -1066,7 +1066,7 @@ html[xmlns] .clearfixx { display: block; }
 
 .navdash {
 	display: flex;		/*originalmente esto no estaba*/
-    /*justify-content: center;*/	/*originalmente esto no estaba*/	
+    /*justify-content: center;*/	/*originalmente esto no estaba*/
 	/*display: inline-flex;*/  /*originalmente esto estaba activado*/
 	list-style-type: none;
 	padding-left:0;  /*agregado todo*/
@@ -1083,7 +1083,7 @@ html[xmlns] .clearfixx { display: block; }
   font-family: "Muli";
 }
 
-.navdash li:hover, .navdash li:nth-child(1){ 
+.navdash li:hover, .navdash li:nth-child(1){
   color: #565656; /*originamente #999*/
   border-bottom: 2px solid #565656;  	/*originamente #999*/
 }
@@ -1110,7 +1110,7 @@ html[xmlns] .clearfixx { display: block; }
   .navdash {
     /*display: none;*/
   }
-  
+
   .followdash {
     width: 50%;
     margin-left: 25%;
@@ -1129,13 +1129,13 @@ html[xmlns] .clearfixx { display: block; }
 
 .gallerydash img {
   /*box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.10);*/
-  width: auto; 
+  width: auto;
   height: auto;
   /*cursor: pointer;*/
   max-width: 100%;
 }
 
-#fixy-user{	
+#fixy-user{
 	background-repeat: no-repeat;
 	/*background-position: right;*/
 	background-size: cover;

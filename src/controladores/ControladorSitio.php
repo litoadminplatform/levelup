@@ -1,16 +1,16 @@
 <?php namespace controladores;
-	
-	use clases\Sesion as Sesion;	
+
+	use clases\Sesion as Sesion;
 	use clases\Filtro as Filtro;
 	use clases\Comun as Comun;
 	use clases\Sitio as Sitio;
 	use clases\Usuario as Usuario;
-	
+
 	class ControladorSitio{
 		private $conexion = false;
-		private $sesion = false;				
+		private $sesion = false;
 		private $filtro = false;
-		
+
 		public function __construct(&$conexion){
 			global $USER, $SESSION, $PAGE, $CFG;
 			$this->conexion = $conexion;
@@ -20,27 +20,27 @@
 			set_time_limit(600);  //10 minutos corriendo.
 			date_default_timezone_set('America/Bogota');
 		}
-		
+
 		public function index(){
-			$respuesta['estado'] = 'ok';	
+			$respuesta['estado'] = 'ok';
 			$respuesta['codigo'] = '';
 			$respuesta['datos'] = array();
-									
-	
+
+
 			return $respuesta;
-		}	
-		
+		}
+
 		public function crear(){
-		
-			
+
+
 			$respuesta['estado'] = 'error';
 			$respuesta['codigo'] = '';
 			$respuesta['datos'] = array();
-												
-			
+
+
 			return $respuesta;
 		}
-		
+
 		/*	GUARDA LA CONFIGURACIÓN DEL SITIO.
 			PUT
 			{
@@ -54,67 +54,67 @@
 			}
 		*/
 		public function editar($id){	//viene PUT y con solo un numero en segunda posicion
-			
+
 			global $USER;
-			
+
 			$respuesta['estado'] = 'error';
 			$respuesta['codigo'] = '';
 			$respuesta['datos'] = array();
-			
-			$json = file_get_contents('php://input');			
+
+			$json = file_get_contents('php://input');
 			$data = json_decode($json,true);
-			
+
 			$puedeeditar = false;
 			if(isloggedin()){
 				$usuario = new Usuario($this->conexion, $USER->id);
-				if($usuario->getDato('id')){					
-					$permisoeditarcurso = $usuario->getAsignacionRol('1', 9);								
+				if($usuario->getDato('id')){
+					$permisoeditarcurso = $usuario->getAsignacionRol('1', 9);
 					if(count($permisoeditarcurso)>0){
 						$puedeeditar = true;
 					}
 				}
-			}		
-			if($puedeeditar){							
-				
+			}
+			if($puedeeditar){
+
 				$buscar = array('<', '>');
 				$reemplazar =  array('', '');
-								
+
 				if(isset($data['textohome']) && ($this->filtro->limiteTamano($data['textohome'], 1, 256) || trim($data['textohome'])=='') ){
 					$data['textohome'] = str_replace($buscar, $reemplazar, trim($data['textohome']));
 				}else{
 					$respuesta['datos'][] = array('textohome', 'Muy largo, se permiten 256 caracteres.');
 				}
-				
+
 				if(isset($data['subtextohome']) && ($this->filtro->limiteTamano($data['subtextohome'], 1, 4096) || trim($data['subtextohome'])=='') ){
 					$data['subtextohome'] = str_replace($buscar, $reemplazar, trim($data['subtextohome']));
 				}else{
 					$respuesta['datos'][] = array('subtextohome', 'Muy largo, se permiten 4096 caracteres.');
 				}
-				
+
 				if(isset($data['textonuevoscursos']) && ($this->filtro->limiteTamano($data['textonuevoscursos'], 1, 256) || trim($data['textonuevoscursos'])=='') ){
 					$data['textonuevoscursos'] = str_replace($buscar, $reemplazar, trim($data['textonuevoscursos']));
 				}else{
 					$respuesta['datos'][] = array('textonuevoscursos', 'Muy largo, se permiten 2048 caracteres.');
 				}
-				
+
 				if(isset($data['subtextonuevoscursos']) && ($this->filtro->limiteTamano($data['subtextonuevoscursos'], 1, 4096) || trim($data['subtextonuevoscursos'])=='') ){
 					$data['subtextonuevoscursos'] = str_replace($buscar, $reemplazar, trim($data['subtextonuevoscursos']));
 				}else{
 					$respuesta['datos'][] = array('subtextonuevoscursos', 'Muy largo, se permiten 4096 caracteres.');
 				}
-				
+
 				if(isset($data['textouneteahora']) && ($this->filtro->limiteTamano($data['textouneteahora'], 1, 256) || trim($data['textouneteahora'])=='') ){
 					$data['textouneteahora'] = str_replace($buscar, $reemplazar, trim($data['textouneteahora']));
 				}else{
 					$respuesta['datos'][] = array('textouneteahora', 'Muy largo, se permiten 256 caracteres.');
 				}
-				
+
 				if(isset($data['subtextouneteahora']) && ($this->filtro->limiteTamano($data['subtextouneteahora'], 1, 4096) || trim($data['subtextouneteahora'])=='') ){
 					$data['subtextouneteahora'] = str_replace($buscar, $reemplazar, trim($data['subtextouneteahora']));
 				}else{
 					$respuesta['datos'][] = array('subtextouneteahora', 'Muy largo, se permiten 4096 caracteres.');
 				}
-				
+
 				if(isset($data['telefonowhastapp']) && ($this->filtro->limiteTamano($data['telefonowhastapp'], 1, 32) || trim($data['telefonowhastapp'])=='') ){
 					$data['telefonowhastapp'] = str_replace($buscar, $reemplazar, trim($data['telefonowhastapp']));
 				}else{
@@ -122,7 +122,7 @@
 				}
 
 				if(count($respuesta['datos'])==0){
-												
+
 					$inyectar = '<div class="infoc" style="display:none;">';
 						$inyectar.= '<div class="textohome">';
 							$inyectar.= trim($data['textohome']);
@@ -135,7 +135,7 @@
 						$inyectar.= '</div>';
 						$inyectar.= '<div class="subtextonuevoscursos">';
 							$inyectar.= trim($data['subtextonuevoscursos']);
-						$inyectar.= '</div>';								
+						$inyectar.= '</div>';
 						$inyectar.= '<div class="textouneteahora">';
 							$inyectar.= trim($data['textouneteahora']);
 						$inyectar.= '</div>';
@@ -144,62 +144,62 @@
 						$inyectar.= '</div>';
 						$inyectar.= '<div class="telefonowhastapp">';
 							$inyectar.= trim($data['telefonowhastapp']);
-						$inyectar.= '</div>';							
+						$inyectar.= '</div>';
 					$inyectar.= '</div>';
-					
+
 					$sitio = new Sitio($this->conexion);
 					if($sitio->guardarConfiguracion($inyectar)){
 						$respuesta['estado'] = 'ok';
 					}
 				}
-					
+
 			}
 			return $respuesta;
-			
+
 		}
-		
+
 		public function borrar($id){	//viene DELETE y con solo un numero en segunda posicion
-			
+
 			$respuesta['estado'] = 'error';
 			$respuesta['codigo'] = '';
 			$respuesta['datos'] = array();
-			
-			
+
+
 			return $respuesta;
 		}
-		
+
 		public function ver($id){	//viene GET y con solo un numero en segunda posicion, para retornar solo los datos de uno solo, si se requiere de otras listas ya ahi si se necesitan las funciones personalizadas.
 			$respuesta['estado'] = 'error';
 			$respuesta['codigo'] = '';
 			$respuesta['datos'] = array();
-			
-			
+
+
 			return $respuesta;
 		}
-		
+
 		/*
 			GET
-			Retorna la interfaz para editar los la configuracion del sitio.			
+			Retorna la interfaz para editar los la configuracion del sitio.
 		*/
 		public function formeditar(){
-			
+
 			global $USER;
-			
+
 			$respuesta['estado'] = 'error';
 			$respuesta['codigo'] = '';
 			$respuesta['datos'] = array();
-			
-			
+
+
 			if(isloggedin()){
 				$usuario = new Usuario($this->conexion, $USER->id);
 				if($usuario->getDato('id')){
 					$permisoeditarcurso = $usuario->getAsignacionRol('1', 9);
 					if(count($permisoeditarcurso)>0){
-						
-						
+
+
 						$sitio = new Sitio($this->conexion);
 						$config = $sitio->getConfig();
-							
+
 						$respuesta['estado'] = 'ok';
 						$respuesta['datos']['textohome'] = $config['textohome'];
 						$respuesta['datos']['subtextohome'] = $config['subtextohome'];
@@ -211,16 +211,16 @@
 						$respuesta['datos']['config'] = $sitio->getConfig();
 					}
 				}
-			}	
-			
+			}
+
 			if($respuesta['estado']=='error'){
 				exit;
 			}
-			
-			return $respuesta;			
+
+			return $respuesta;
 		}
-		
-		
+
+
 		/*
 			POST
 		*/
@@ -230,21 +230,21 @@
 			if(isset($_POST['urlredireccionar'])){
 				if(filter_var($_POST['urlredireccionar'], FILTER_VALIDATE_URL)) {
 					$respuesta['estado'] = 'ok';
-					$this->sesion->setDatoSesion('urlreedireccionar', $_POST['urlredireccionar']);					
+					$this->sesion->setDatoSesion('urlreedireccionar', $_POST['urlredireccionar']);
 					setcookie('urlreedireccionar', $_POST['urlredireccionar'], time() + (86400 * 30), "/");
 				}
 			}
 			return $respuesta;
 		}
-		
+
 		public function postLoad(){
 			$respuesta['estado'] = 'ok';
 			$respuesta['codigo'] = '';
 			$respuesta['datos'] = array();
-			$respuesta['datos']['reedireccionar'] = '';						
-			
+			$respuesta['datos']['reedireccionar'] = '';
+
 			//si hay algun lugar para reedireccionar enviamos el dato.
-			if($this->sesion->getDatoSesion('urlreedireccionar')!='' || isset($_COOKIE['urlreedireccionar'])){	
+			if($this->sesion->getDatoSesion('urlreedireccionar')!='' || isset($_COOKIE['urlreedireccionar'])){
 				if($this->sesion->getDatoSesion('urlreedireccionar')!=''){
 					$respuesta['datos']['reedireccionar'] = $this->sesion->getDatoSesion('urlreedireccionar');
 					$this->sesion->setDatoSesion('urlreedireccionar', '');
@@ -253,12 +253,12 @@
 						$respuesta['datos']['reedireccionar'] = $_COOKIE['urlreedireccionar'];
 						setcookie('urlreedireccionar', '', time() - 3600, "/");
 					}
-				}												
+				}
 			}
-			
+
 			return $respuesta;
 		}
-		
+
 		/*
 			GET
 		*/
@@ -272,43 +272,43 @@
 			}
 			return $respuesta;
 		}
-		
+
 		/*
 			GET: Retorna los cursos ofertados en este momento en la plataforma.
 		*/
 		public function getCursosOfertados(){
 			global $OUTPUT;
-			
+
 			$respuesta['estado'] = 'error';
 			$respuesta['codigo'] = '';
 			$respuesta['datos'] = array();
 			$respuesta['datos']['categorias'] = array();
-			
+
 			$sitio = new Sitio($this->conexion);
 			$idcatprincipal = $sitio->getIdCategoriaOfertados();
 			if($idcatprincipal!=-1){
-				$respuesta['datos']['categorias'] = $sitio->getSubCategoriasByIdPadre($idcatprincipal);	
+				$respuesta['datos']['categorias'] = $sitio->getSubCategoriasByIdPadre($idcatprincipal);
 				$cursos = $sitio->getCursosOfertados();
 				$cursos = $cursos['datos'];
 				$tam = count($respuesta['datos']['categorias']);
 				for($i=0; $i<$tam; $i++){
-					$respuesta['datos']['categorias'][$i]['cursos'] = array();	
+					$respuesta['datos']['categorias'][$i]['cursos'] = array();
 					reset($cursos);
 					foreach($cursos as $cu){
 						if($cu['category']==$respuesta['datos']['categorias'][$i]['id']){
-							$respuesta['datos']['categorias'][$i]['cursos'][] = $cu;							
+							$respuesta['datos']['categorias'][$i]['cursos'][] = $cu;
 						}
-					}					
-				}	
+					}
+				}
 			}
-			
+
 			$respuesta['estado'] = 'ok';
-			
+
 			return $respuesta;
 		}
-		
+
 		public function generarBaseDeDatos(){
-			
+
 			//tabla cupones
 			$ejecutar = 'CREATE SEQUENCE public.cupon_id_seq
 				INCREMENT 1
@@ -336,15 +336,15 @@
 
 			ALTER TABLE public.cuponesdedescuento
 				OWNER to seamitib; ';
-			
+
 			//tabla factura
-			
+
 			$ejecutar.= ' CREATE SEQUENCE public.factura_seq
 				INCREMENT 1
 				START 1
 				MINVALUE 1
 				MAXVALUE 9223372036854775807
-				CACHE 1; 				
+				CACHE 1;
 
 			CREATE TABLE IF NOT EXISTS public.factura
 			(
@@ -382,9 +382,9 @@
 
 			CREATE INDEX idcurso ON public.factura USING btree (idcurso ASC NULLS LAST) TABLESPACE pg_default;
 			CREATE INDEX idusuario ON public.factura USING btree (idusuario ASC NULLS LAST) TABLESPACE pg_default; ';
-			
+
 		}
-		
+
 	}
-	
+
 ?>

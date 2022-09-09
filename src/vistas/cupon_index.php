@@ -6,7 +6,7 @@
 	<meta name="description" content="WebUni Education Template">
 	<meta name="keywords" content="webuni, education, creative, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Favicon -->   
+	<!-- Favicon -->
 	<link href="<?php echo URLPROYECTO; ?>vistas/img/favicon.ico" rel="shortcut icon"/>
 
 	<!-- Google Fonts -->
@@ -20,7 +20,7 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="<?php echo URLPROYECTO; ?>vistas/css/interfaz.css"/>
 	<link rel="stylesheet" href="<?php echo URLPROYECTO; ?>vistas/lib/datepicker_gigo/gijgo.min.css">
-	
+
 	<!--[if lt IE 9]>
 	  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -35,10 +35,10 @@
 		.signup-form{
 			padding: 30px;
 		}
-		
+
 		.gj-datepicker-md [role=right-icon] {
 			right: 50%;
-		}	
+		}
 		.supbar {
 			overflow: hidden;
 			background-color: #1900FF;
@@ -56,9 +56,9 @@
 <body>
 
 	<?php
-		
+
 		//print_r($datos['datos']); //['categorias']
-	
+
 	?>
 
 	<!-- Page Preloder -->
@@ -87,11 +87,11 @@
 					<nav class="main-menu">
 						<ul>
 							<li><a href="<?php echo URLBASE; ?>">Inicio</a></li>
-							<li><a href="<?php echo URLBASE; ?>/info/curso">Explorar cursos</a></li>							
+							<li><a href="<?php echo URLBASE; ?>/info/curso">Explorar cursos</a></li>
 							<?php if(!isloggedin()){?>
 							<li><a href="#" class="menuregistrarme">Registrarme</a></li>
 							<?php }else{ ?>
-							<li><a href="<?php echo URLBASE; ?>/info/usuario/miscompras/0">Mis compras</a></li>	
+							<li><a href="<?php echo URLBASE; ?>/info/usuario/miscompras/0">Mis compras</a></li>
 							<?php } ?>
 						</ul>
 					</nav>
@@ -106,7 +106,7 @@
 	<div class="page-info-section set-bg" data-setbg="<?php echo URLPROYECTO; ?>vistas/img/page-bg/1.jpg">
 		<div class="container">
 			<div class="site-breadcrumb">
-				<a href="<?php echo URLBASE; ?>">Inicio</a>				
+				<a href="<?php echo URLBASE; ?>">Inicio</a>
 				<span>Cupones</span>
 			</div>
 		</div>
@@ -142,15 +142,15 @@
 													<td><?php echo $cu['fechahoravencimiento']; ?></td>
 													<td><?php echo $cu['porcentajedescuento']; ?>%</td>
 													<td><button class="site-btn sm botoneditar" data-idcupon="<?php echo $cu['id']; ?>">Editar</button><button class="site-btn sm botonborrar" data-idcupon="<?php echo $cu['id']; ?>">Borrar</button></td>
-												</tr>	
-											<?php											
+												</tr>
+											<?php
 										}
-									?>																
+									?>
 								</tbody>
 							</table>
-						
+
 						<?php
-						
+
 					}else{
 						?><div style="min-height:250px;">No existe ningún cupón</div><?php
 					}
@@ -226,8 +226,8 @@
 					<?php } ?>
 					<a href="https://www.instagram.com/cec_americana" target="_blank"><i class='fab fa-instagram' style='font-size:24px; margin-right:10px; color:#BB29A6;'></i></a>
 					<a href="https://www.facebook.com/cecamericana" target="_blank"><i class='fab fa-facebook' style='font-size:24px; color:#3b5998;'></i></a><br>
-					
-					<li><a href="#">Términos y Condiciones</a></li>					
+
+					<li><a href="#">Términos y Condiciones</a></li>
 					<li><a href="#">Privacidad</a></li>
 				</ul>
 				<div class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -236,7 +236,7 @@
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
 			</div>
 		</div>
-	</footer> 
+	</footer>
 	<!-- footer section end -->
 
 
@@ -251,87 +251,87 @@
 	<script src="<?php echo URLPROYECTO; ?>vistas/js/interfaz.js"></script>
 	<script src='<?php echo URLPROYECTO; ?>vistas/js/kitfontawesome.js'></script>
 	<script src='<?php echo URLPROYECTO; ?>vistas/lib/datepicker_gigo/gijgo.min.js'></script>
-	
-	
+
+
 	<?php
-		include_once('comunbottom.php');				
+		include_once('comunbottom.php');
 	?>
-	
+
 	<script style="text/javascript">
 		var calendario = false;
 		window.onload = function(){
-			
+
 			$('#botonnuevocupon').on('click', function(){
-				nuevoCupon();				
+				nuevoCupon();
 			});
-						
+
 			$(".botonborrar").each(function(i){
 				$(this).on('click', function(){
 					var idcupon = $(this).data("idcupon");
-					borrar(idcupon, false);				
+					borrar(idcupon, false);
 				});
 			});
-			
+
 			$(".botoneditar").each(function(i){
 				$(this).on('click', function(){
 					var idcupon = $(this).data("idcupon");
 					editar(idcupon);
 				});
 			});
-			
-			
-		
+
+
+
 		}
-		
+
 		function borrar(idcupon, confirmar){
-			
+
 			if(!confirmar){
-				
-				var pop = new Popup('popup', 'Confirmar', '<br>Confirma que desea borrar el cupón?<br><br>', 500, 3, function(){								
+
+				var pop = new Popup('popup', 'Confirmar', '<br>Confirma que desea borrar el cupón?<br><br>', 500, 3, function(){
 					pop.cerrar();
 					borrar(idcupon, true);
-				});	
-				
+				});
+
 			}else{
-				
-				$.ajax({type: "DELETE", url: "<?php echo URLBASE; ?>/info/api/cupon/"+idcupon, data:'', success: function(resp){									
-					resp = jQuery.parseJSON(resp);			
+
+				$.ajax({type: "DELETE", url: "<?php echo URLBASE; ?>/info/api/cupon/"+idcupon, data:'', success: function(resp){
+					resp = jQuery.parseJSON(resp);
 					switch(resp.estado){
-						case 'ok':														
-							var pop = new Popup('popup', 'Listo', '<br>Cupón borrado.<br><br>', 400, 2, function(){								
+						case 'ok':
+							var pop = new Popup('popup', 'Listo', '<br>Cupón borrado.<br><br>', 400, 2, function(){
 								document.location.reload();
 							});
 						break;
 						case 'error':
-							
-							var pop = new Popup('popup', 'Error', '<br>Error al intentar borrar el cupón.<br><br>', 400, 2, function(){								
+
+							var pop = new Popup('popup', 'Error', '<br>Error al intentar borrar el cupón.<br><br>', 400, 2, function(){
 								pop.cerrar();
 							});
-							
+
 						break;
 					}
 				}});
-				
+
 			}
 		}
-		
-		
+
+
 		function editar(idcupon){
-			
-			$.ajax({type: "GET", url: "<?php echo URLBASE; ?>/info/api/cupon/"+idcupon, data:'', success: function(resp){				
-				resp = jQuery.parseJSON(resp);				
+
+			$.ajax({type: "GET", url: "<?php echo URLBASE; ?>/info/api/cupon/"+idcupon, data:'', success: function(resp){
+				resp = jQuery.parseJSON(resp);
 				switch(resp.estado){
 					case 'ok':
-						
-						var datos = resp.datos; 
+
+						var datos = resp.datos;
 						var fechahoravencimiento = datos.fechahoravencimiento;
 						var partes = fechahoravencimiento.split(' ');
 						var horaminuto = partes[1];
 						var parteshora = horaminuto.split(':');
-						
+
 						var hora = parteshora[0];
-						var minuto = parteshora[1]; 
-						 						 
+						var minuto = parteshora[1];
+
 						var inyectar='<form id="formulario" method="POST" enctype="multipart/form-data" action="<?php echo URLBASE; ?>/info/cupon/">';
 							inyectar+='<div class="form-group">';
 								inyectar+='<label for="codigo">Código del cupón</label>';
@@ -339,50 +339,50 @@
 								inyectar+='<small id="emailHelp" class="form-text text-muted">Las letras se guardarán en mayúscula.</small>';
 								inyectar+='<span class="badge badge-danger" id="error-codigo"></span>';
 							inyectar+='</div>';
-							
+
 							inyectar+='<div class="form-group">';
 								inyectar+='<label for="porcentajedescuento">Porcentaje de descuento</label>';
 								inyectar+='<input type="text" class="form-control" id="porcentajedescuento" name="porcentajedescuento" maxlength="2" aria-describedby="inputporcentajedescuentoAyuda" placeholder="Ejemplo : 15" value="'+datos.porcentajedescuento+'">';
 								inyectar+='<span class="badge badge-danger" id="error-porcentajedescuento"></span>';
 							inyectar+='</div>';
-							
+
 							inyectar+='<div class="form-group">';
 								inyectar+='<label for="fechahoravencimiento">Fecha y hora de vencimiento</label>';
 								inyectar+='<input type="text" class="form-control" id="fecha" name="fecha" aria-describedby="inputfechaAyuda" style="width:50%; float:left;" value="'+partes[0]+'">';
-								
+
 								inyectar+='<select class="form-control" name="hora" id="hora" style="width:25%; float:left;">';
 									inyectar+='<option value="-1">-- Hora --</option>';
-																		
+
 									for(var i=0; i<24; i++){
 										var valor = i;
 										if(i<10){ valor = '0'+i;  }
-										
+
 										var seleccionado = '';
 										if(hora==valor){
 											seleccionado = 'selected="selected"';
 										}
-										
+
 										inyectar+='<option value="'+valor+'" '+seleccionado+'>'+valor+'</option>';
-									}					
+									}
 								inyectar+='</select>';
-								
-								
+
+
 								inyectar+='<select class="form-control" name="minuto" id="minuto" style="width:25%;">';
 									inyectar+='<option value="-1">-- Minuto --</option>';
 									for(var i=0; i<59; i++){
 										var valor = i;
 										if(i<10){ valor = '0'+i;  }
-										
+
 										var seleccionado = '';
 										if(minuto==valor){
 											seleccionado = 'selected="selected"';
 										}
-																				
+
 										inyectar+='<option value="'+valor+'" '+seleccionado+'>'+valor+'</option>';
-									}					
+									}
 								inyectar+='</select>';
 								inyectar+='<span class="badge badge-danger" id="error-fechahoravencimiento"></span>';
-							inyectar+='</div>';							
+							inyectar+='</div>';
 							inyectar+='<div class="form-group">';
 								inyectar+='<label for="estado">Estado</label>';
 								inyectar+='<select class="form-control" name="estado" id="estado" style="width:25%;">';
@@ -391,44 +391,44 @@
 								inyectar+='</select>';
 								inyectar+='<span class="badge badge-danger" id="error-estado"></span>';
 							inyectar+='</div>';
-							
-							
-						inyectar+='</form>';	
-						
+
+
+						inyectar+='</form>';
+
 						var pop = new Popup('popup', 'Editar cupon', '<br>'+inyectar+'<br><br>', 500, 3, function(){
-						});	
-						
+						});
+
 						pop.changeButton(2, 'Guardar', function(){
-							
+
 							var codigo = $('#codigo').val();
 							var porcentajedescuento = $('#porcentajedescuento').val();
 							var fechahoravencimiento = $('#fecha').val()+' '+$('#hora').val()+':'+$('#minuto').val()+':00';
 							var estado = $('#estado').val();
-							
-							var data = {	
+
+							var data = {
 								codigo: codigo,
 								porcentajedescuento: porcentajedescuento,
 								fechahoravencimiento: fechahoravencimiento,
 								estado: estado
 							};
-							
-							$.ajax({type: "PUT", url: "<?php echo URLBASE; ?>/info/api/cupon/"+idcupon, data:JSON.stringify(data), success: function(resp3){				
-								resp3 = jQuery.parseJSON(resp3);				
+
+							$.ajax({type: "PUT", url: "<?php echo URLBASE; ?>/info/api/cupon/"+idcupon, data:JSON.stringify(data), success: function(resp3){
+								resp3 = jQuery.parseJSON(resp3);
 								switch(resp3.estado){
-									case 'ok': 
-									
+									case 'ok':
+
 										var pop = new Popup('popup', 'Listo', '<br>Datos guardados<br><br>', 500, 2, function(){
 											document.location.reload();
 										});
-								
+
 									break;
 									case 'error':
 									break;
 								}
 							}});
-							
+
 						});
-						
+
 						calendario = $('#fecha').datepicker({
 							format: 'yyyy-mm-dd',
 							weekStartDay: 1,
@@ -437,20 +437,20 @@
 								//document.location.href="reportegrabaciones.php?reset=true&fechainiciocurso="+nuevafecha;
 							}
 						});
-						
+
 					break;
 					case 'error':
-						pop = new Popup('popup', 'Error', '<br>No se pudieron obtener los datos del cupón<br><br>', 500, 2, function(){								
+						pop = new Popup('popup', 'Error', '<br>No se pudieron obtener los datos del cupón<br><br>', 500, 2, function(){
 							document.location.reload();
 						});
 					break;
 				}
 			}});
-			
+
 		}
-		function nuevoCupon(){			
+		function nuevoCupon(){
 			var inyectar = '';
-			
+
 			inyectar+='<form id="formulario" method="post" enctype="multipart/form-data" action="<?php echo URLBASE; ?>/info/cupon">';
 				inyectar+='<div class="form-group">';
 					inyectar+='<label for="codigo">Código del cupón</label>';
@@ -458,57 +458,57 @@
 					inyectar+='<small id="emailHelp" class="form-text text-muted">Las letras se guardarán en mayúscula.</small>';
 					inyectar+='<span class="badge badge-danger" id="error-codigo"></span>';
 				inyectar+='</div>';
-				
+
 				inyectar+='<div class="form-group">';
 					inyectar+='<label for="porcentajedescuento">Porcentaje de descuento</label>';
 					inyectar+='<input type="text" class="form-control" id="porcentajedescuento" name="porcentajedescuento" maxlength="2" aria-describedby="inputporcentajedescuentoAyuda" placeholder="Ejemplo : 15">';
 					inyectar+='<span class="badge badge-danger" id="error-porcentajedescuento"></span>';
 				inyectar+='</div>';
-				
+
 				inyectar+='<div class="form-group">';
 					inyectar+='<label for="fechahoravencimiento">Fecha y hora de vencimiento</label>';
 					inyectar+='<input type="text" class="form-control" id="fecha" name="fecha" aria-describedby="inputfechaAyuda" style="width:50%; float:left;">';
-					
+
 					inyectar+='<select class="form-control" name="hora" id="hora" style="width:25%; float:left;">';
 						inyectar+='<option value="-1">-- Hora --</option>';
 						for(var i=0; i<24; i++){
 							var valor = i;
 							if(i<10){ valor = '0'+i;  }
 							inyectar+='<option value="'+valor+'">'+valor+'</option>';
-						}					
+						}
 					inyectar+='</select>';
-					
-					
+
+
 					inyectar+='<select class="form-control" name="minuto" id="minuto" style="width:25%;">';
 						inyectar+='<option value="-1">-- Minuto --</option>';
 						for(var i=0; i<59; i++){
 							var valor = i;
 							if(i<10){ valor = '0'+i;  }
 							inyectar+='<option value="'+valor+'">'+valor+'</option>';
-						}					
+						}
 					inyectar+='</select>';
 					inyectar+='<span class="badge badge-danger" id="error-fechahoravencimiento"></span>';
 				inyectar+='</div>';
-				
-			inyectar+='</form>';	
-			
-			
-			var pop = new Popup('popup', 'Crear nuevo cupón', '<br>'+inyectar+'<br><br>', 500, 3, function(){								
+
+			inyectar+='</form>';
+
+
+			var pop = new Popup('popup', 'Crear nuevo cupón', '<br>'+inyectar+'<br><br>', 500, 3, function(){
 				pop.cerrar();
-			});	
+			});
 			pop.changeButton(2, 'Guardar', function(){
-				
+
 				$('#popuppopbutac').attr('disabled', 'disabled');
 				var serializado = $('#formulario').serialize();
-				$("span[id^='error-']").each(function(i){  $(this).hide(); });	
-				
+				$("span[id^='error-']").each(function(i){  $(this).hide(); });
+
 				var fechahoravencimiento = $('#fecha').val()+' '+$('#hora').val()+':'+$('#minuto').val()+':00';
-				
-				$.ajax({type: "POST", url: "<?php echo URLBASE; ?>/info/api/cupon", data:serializado+'&fechahoravencimiento='+fechahoravencimiento, success: function(resp){				
-					resp = jQuery.parseJSON(resp);				
+
+				$.ajax({type: "POST", url: "<?php echo URLBASE; ?>/info/api/cupon", data:serializado+'&fechahoravencimiento='+fechahoravencimiento, success: function(resp){
+					resp = jQuery.parseJSON(resp);
 					switch(resp.estado){
 						case 'ok':
-							pop = new Popup('popup', 'Listo', '<br>El cupón fue creado<br><br>', 500, 2, function(){								
+							pop = new Popup('popup', 'Listo', '<br>El cupón fue creado<br><br>', 500, 2, function(){
 								document.location.reload();
 							});
 						break;
@@ -520,13 +520,13 @@
 							});
 						break;
 					}
-				}});	
-				
-				
-				
+				}});
+
+
+
 			});
-			
-			
+
+
 			calendario = $('#fecha').datepicker({
 				format: 'yyyy-mm-dd',
 				weekStartDay: 1,
@@ -535,10 +535,10 @@
 					//document.location.href="reportegrabaciones.php?reset=true&fechainiciocurso="+nuevafecha;
 				}
 			});
-			
+
 		}
-		
+
 	</script>
-	
+
 </body>
 </html>
