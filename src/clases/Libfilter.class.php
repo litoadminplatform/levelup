@@ -1,7 +1,7 @@
-<?php namespace clases; 
+<?php namespace clases;
 	# 100644 652 lines (459 sloc) 14.965 kb    si estos datos cambian de la pagina de descarga, actualizaron el archivo
-	# Pagina de descarga oficial : https://github.com/iamcal/lib_filter/blob/master/lib_filter.php	
-	# //yo luis lindarte, le cambie el nombre a esta clase y a este archivo para que concuerde con los del proyecto		
+	# Pagina de descarga oficial : https://github.com/iamcal/lib_filter/blob/master/lib_filter.php
+	# //yo luis lindarte, le cambie el nombre a esta clase y a este archivo para que concuerde con los del proyecto
 	#
 	# A PHP HTML filtering library
 	#
@@ -17,7 +17,7 @@
 	# Thanks to Jang Kim for adding support for single quoted attributes
 	# Thanks to Dan Bogan for dealing with entity decoding outside attributes
 	#
-	
+
 
 	class Libfilter{
 		var $tag_counts = array();
@@ -476,6 +476,6 @@
 		}
 		#####################################################################################
 	}
-	
+
 
 ?>

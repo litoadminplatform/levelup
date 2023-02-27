@@ -1,19 +1,19 @@
-<?php namespace clases; 
+<?php namespace clases;
 class EMail {
-	
+
 	/*SE DEBE ASEGURAR QUE LA CLASE EMAIL.CLASS.PHP ESTA BIEN CONFIGURADA CON EL SERVICIO POR DONDE SE ENVIARAN LOS EMAILS
 	Y A SU VES QUE PHP ESTE CONFIGURADO PARA ENVIAR EMAILS, Y LO QUE SEA NECESARIO EN EL SERVIDOR. DE LO CONTRARIO APARECERAN ERRORES.
 	QUE LOS EMAILS LLEGUEN O NO A SU DESTINO DEPENDE DE MUCHAS COSAS EXTERNAS A LA PROGRAMACION DE ESTE SISTEMA.
 	*/
-	
+
 	protected $to;
-	protected $from;	
+	protected $from;
 	protected $sender;
 	protected $subject;
 	protected $text;
 	protected $html;
 	protected $attachments = array();
-	public $protocol = 'smtp';			//debe ser modificado por coruniamericana	config_mail_protocol  o puede ser 'smtp' cuando esta en 'mail' usa la funcion mail de php pero debe asegurarse de que las librerias correspondientes estén activadas.
+	public $protocol = 'smtp';			//debe ser modificado por coruniamericana	config_mail_protocol  o puede ser 'smtp' cuando esta en 'mail' usa la funcion mail de php pero debe asegurarse de que las librerias correspondientes estï¿½n activadas.
 	public $hostname = 'smtp.gmail.com';					//debe ser modificado por coruniamericana	config_smtp_host, se necesita para cuando es smtp
 	public $username = 'soportemyedu@coruniamericana.edu.co';					//debe ser modificado por coruniamericana	config_smtp_username, se necesita para cuando es smtp
 	public $password = 'myedu2020.';					//debe ser modificado por coruniamericana	config_smtp_password, se necesita para cuando es smtp
@@ -23,14 +23,14 @@ class EMail {
 	public $crlf = "\r\n";
 	public $verp = false;
 	public $parameter = '';				//debe ser modificado por coruniamericana	config_mail_parameter
-	
+
 	function __construct(){
-	
+
 	}
-	
+
 	/*envia un email en texto plano rapidamente*/
 	public function emailRapidoPlano($email, $asunto, $mensaje){
-		$this->setTo($email);		
+		$this->setTo($email);
 		$this->setFrom('soportemyedu@coruniamericana.edu.co');
 		$this->setSender('Soporte MyEdu');
 		$this->setSubject($asunto);
@@ -39,9 +39,9 @@ class EMail {
 		//$this->addAttachment(DIR_IMAGE . $this->config->get('config_logo'), md5(basename($this->config->get('config_logo'))));
 		$this->send();
 	}
-	
+
 	public function emailRapidoHtml($email, $asunto, $mensaje){
-		$this->setTo($email);		
+		$this->setTo($email);
 		$this->setFrom('soportemyedu@coruniamericana.edu.co');
 		$this->setSender('Soporte MyEdu');
 		$this->setSubject($asunto);
@@ -50,7 +50,7 @@ class EMail {
 		//$this->addAttachment(DIR_IMAGE . $this->config->get('config_logo'), md5(basename($this->config->get('config_logo'))));
 		$this->send();
 	}
-	
+
 	public function setTo($to) {
 		$this->to = $to;
 	}
@@ -58,7 +58,7 @@ class EMail {
 	public function setFrom($from) {
 		$this->from = $from;
 	}
-			
+
 	public function setSender($sender) {
 		$this->sender = $sender;
 	}
@@ -82,27 +82,27 @@ class EMail {
 	public function send() {
 		if (!$this->to) {
 			trigger_error('Error: E-Mail to required!');
-			exit();			
+			exit();
 		}
 
 		if (!$this->from) {
 			trigger_error('Error: E-Mail from required!');
-			exit();					
+			exit();
 		}
 
 		if (!$this->sender) {
 			trigger_error('Error: E-Mail sender required!');
-			exit();					
+			exit();
 		}
 
 		if (!$this->subject) {
 			trigger_error('Error: E-Mail subject required!');
-			exit();					
+			exit();
 		}
 
 		if ((!$this->text) && (!$this->html)) {
 			trigger_error('Error: E-Mail message required!');
-			exit();					
+			exit();
 		}
 
 		if (is_array($this->to)) {
@@ -114,14 +114,14 @@ class EMail {
 		$boundary = '----=_NextPart_' . md5(time());
 
 		$header = '';
-		
+
 		$header .= 'MIME-Version: 1.0' . $this->newline;
-		
+
 		if ($this->protocol != 'mail') {
-			$header .= 'To: ' . $to . $this->newline;			
+			$header .= 'To: ' . $to . $this->newline;
 			$header .= 'Subject: ' . $this->subject . $this->newline;
 		}
-		
+
 		$header .= 'Date: ' . date('D, d M Y H:i:s O') . $this->newline;
 		$header .= 'From: ' . '=?UTF-8?B?' . base64_encode($this->sender) . '?=' . '<' . $this->from . '>' . $this->newline;
 		$header .= 'Reply-To: ' . '=?UTF-8?B?' . base64_encode($this->sender) . '?=' . '<' . $this->from . '>' . $this->newline;
@@ -157,9 +157,9 @@ class EMail {
 		foreach ($this->attachments as $attachment) {
 			if (file_exists($attachment)) {
 				$handle = fopen($attachment, 'r');
-				
+
 				$content = fread($handle, filesize($attachment));
-				
+
 				fclose($handle);
 
 				$message .= '--' . $boundary . $this->newline;
@@ -183,15 +183,15 @@ class EMail {
 				mail($to, '=?UTF-8?B?' . base64_encode($this->subject) . '?=', $message, $header);
 			}
 		} elseif ($this->protocol == 'smtp') {
-		
+
 			echo '<br>'.$this->hostname.' > '.$this->port.' > '.$errno.' > '.$this->timeout;
-		
+
 			$handle = fsockopen($this->hostname, $this->port, $errno, $errstr, $this->timeout);
 
 			if (!$handle) {
 				echo 'errorrrrrrrr';
 				trigger_error('Error: ' . $errstr . ' (' . $errno . ')');
-				exit();					
+				exit();
 			} else {
 				echo 'pasando1';
 				if (substr(PHP_OS, 0, 3) != 'WIN') {
@@ -218,7 +218,7 @@ class EMail {
 					if (substr($reply, 0, 3) != 220) {
 						echo ' aja3 ';
 						trigger_error('Error: STARTTLS not accepted from server!');
-						exit();								
+						exit();
 					}
 				}
 				echo 'pasando3';
@@ -237,7 +237,7 @@ class EMail {
 					echo 'pasando5';
 					if (substr($reply, 0, 3) != 250) {
 						trigger_error('Error: EHLO not accepted from server!');
-						exit();								
+						exit();
 					}
 					echo 'pasando6';
 					fputs($handle, 'AUTH LOGIN' . $this->crlf);
@@ -254,11 +254,11 @@ class EMail {
 					echo 'pasando7:'.$reply;
 					if (substr($reply, 0, 3) != 334) {
 						trigger_error('Error: AUTH LOGIN not accepted from server!');
-						exit();						
+						exit();
 					}
 					echo 'pasando8';
 					fputs($handle, base64_encode($this->username) . $this->crlf);
-					
+
 					$reply = '';
 
 					while ($line = fgets($handle, 515)) {
@@ -271,7 +271,7 @@ class EMail {
 
 					if (substr($reply, 0, 3) != 334) {
 						trigger_error('Error: Username not accepted from server!');
-						exit();								
+						exit();
 					}
 
 					fputs($handle, base64_encode($this->password) . $this->crlf);
@@ -288,7 +288,7 @@ class EMail {
 
 					if (substr($reply, 0, 3) != 235) {
 						trigger_error('Error: Password not accepted from server!');
-						exit();								
+						exit();
 					}
 				} else {
 					fputs($handle, 'HELO ' . getenv('SERVER_NAME') . $this->crlf);
@@ -305,7 +305,7 @@ class EMail {
 
 					if (substr($reply, 0, 3) != 250) {
 						trigger_error('Error: HELO not accepted from server!');
-						exit();							
+						exit();
 					}
 				}
 
@@ -327,7 +327,7 @@ class EMail {
 
 				if (substr($reply, 0, 3) != 250) {
 					trigger_error('Error: MAIL FROM not accepted from server!');
-					exit();							
+					exit();
 				}
 
 				if (!is_array($this->to)) {
@@ -345,7 +345,7 @@ class EMail {
 
 					if ((substr($reply, 0, 3) != 250) && (substr($reply, 0, 3) != 251)) {
 						trigger_error('Error: RCPT TO not accepted from server!');
-						exit();							
+						exit();
 					}
 				} else {
 					foreach ($this->to as $recipient) {
@@ -363,7 +363,7 @@ class EMail {
 
 						if ((substr($reply, 0, 3) != 250) && (substr($reply, 0, 3) != 251)) {
 							trigger_error('Error: RCPT TO not accepted from server!');
-							exit();								
+							exit();
 						}
 					}
 				}
@@ -382,27 +382,27 @@ class EMail {
 
 				if (substr($reply, 0, 3) != 354) {
 					trigger_error('Error: DATA not accepted from server!');
-					exit();						
+					exit();
 				}
-            	
+
 				// According to rfc 821 we should not send more than 1000 including the CRLF
 				$message = str_replace("\r\n", "\n",  $header . $message);
 				$message = str_replace("\r", "\n", $message);
-				
+
 				$lines = explode("\n", $message);
-				
+
 				foreach ($lines as $line) {
 					$results = str_split($line, 998);
-					
+
 					foreach ($results as $result) {
 						if (substr(PHP_OS, 0, 3) != 'WIN') {
 							fputs($handle, $result . $this->crlf);
 						} else {
 							fputs($handle, str_replace("\n", "\r\n", $result) . $this->crlf);
-						}							
+						}
 					}
 				}
-				
+
 				fputs($handle, '.' . $this->crlf);
 
 				$reply = '';
@@ -417,9 +417,9 @@ class EMail {
 
 				if (substr($reply, 0, 3) != 250) {
 					trigger_error('Error: DATA not accepted from server!');
-					exit();						
+					exit();
 				}
-				
+
 				fputs($handle, 'QUIT' . $this->crlf);
 
 				$reply = '';
@@ -434,7 +434,7 @@ class EMail {
 
 				if (substr($reply, 0, 3) != 221) {
 					trigger_error('Error: QUIT not accepted from server!');
-					exit();						
+					exit();
 				}
 
 				fclose($handle);

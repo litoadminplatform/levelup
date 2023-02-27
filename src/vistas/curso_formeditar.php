@@ -6,7 +6,7 @@
 	<meta name="description" content="WebUni Education Template">
 	<meta name="keywords" content="webuni, education, creative, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Favicon -->   
+	<!-- Favicon -->
 	<link href="<?php echo URLPROYECTO; ?>vistas/img/favicon.ico" rel="shortcut icon"/>
 
 	<!-- Google Fonts -->
@@ -20,7 +20,7 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="<?php echo URLPROYECTO; ?>vistas/css/interfaz.css"/>
 
-	
+
 	<!--[if lt IE 9]>
 	  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -52,9 +52,9 @@
 <body>
 
 	<?php
-		
+
 		//print_r($datos['datos']); //['categorias']
-	
+
 	?>
 
 	<!-- Page Preloder -->
@@ -87,7 +87,7 @@
 							<?php if(!isloggedin()){?>
 							<li><a href="#" class="menuregistrarme">Registrarme</a></li>
 							<?php }else{ ?>
-							<li><a href="<?php echo URLBASE; ?>/info/usuario/miscompras/0">Mis compras</a></li>	
+							<li><a href="<?php echo URLBASE; ?>/info/usuario/miscompras/0">Mis compras</a></li>
 							<?php } ?>
 						</ul>
 					</nav>
@@ -114,36 +114,36 @@
 	<section class="course-section pb-0">
 		<div class="course-warp">
 			<div class="container" style="margin-top:50px;">
-				
+
 				<h4>Editando: <?php echo $datos['datos']['fullname']; ?></h4>
-			
+
 				<form id="form-curso" method="post" enctype="multipart/form-data" action="<?php echo URLBASE; ?>/info/curso/<?php echo $datos['datos']['id']; ?>" style="margin-bottom:100px;">
-				
+
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Descripción corta:</label>
 						<textarea class="form-control" id="descripcioncorta" name="descripcioncorta" rows="3"><?php echo $datos['datos']['descripcioncorta']; ?></textarea>
 						<div class="alert alert-danger" role="alert" id="alert_descripcioncorta" style="display:none;"></div>
 					</div>
-					
+
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Descripción larga:</label>
 						<textarea class="form-control" id="descripcionlarga" name="descripcionlarga" rows="3"><?php echo $datos['datos']['descripcionlarga']; ?></textarea>
 						<div class="alert alert-danger" role="alert" id="alert_descripcionlarga" style="display:none;"></div>
 					</div>
-					
+
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Dirigido a:</label>
 						<textarea class="form-control" id="dirigidoa" name="dirigidoa" rows="3"><?php echo $datos['datos']['dirigidoa']; ?></textarea>
 						<div class="alert alert-danger" role="alert" id="alert_dirigidoa" style="display:none;"></div>
 					</div>
-					
+
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Pre-requisitos (introducción):</label>
 						<textarea class="form-control" id="prerequisito" name="prerequisito" rows="3"><?php echo $datos['datos']['prerequisito']; ?></textarea>
 						<div class="alert alert-danger" role="alert" id="alert_prerequisito" style="display:none;"></div>
 					</div>
-					
-					
+
+
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Pre-requisitos (Items):</label>
 						<div id="prerequisitolistado" style="margin-bottom:15px;">
@@ -156,55 +156,55 @@
 									<?php
 									$cont++;
 								}
-							?>		
+							?>
 						</div>
 						<button type="button" class="btn btn-primary btn-sm" id="botonagregarprerequisito">Agregar Pre-requisito</button>
-						<div class="alert alert-danger" role="alert" id="alert_prerequisito" style="display:none;">								
+						<div class="alert alert-danger" role="alert" id="alert_prerequisito" style="display:none;">
 						</div>
 					</div>
-					
+
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Precio:</label>
 						<input type="text" class="form-control" id="precio" name="precio"  placeholder="Sin puntos, comas o símbolos" value="<?php echo $datos['datos']['precio']; ?>">
 						<div class="alert alert-danger" role="alert" id="alert_precio" style="display:none;"></div>
 					</div>
-					
+
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Horario:</label>
 						<input type="text" class="form-control" id="horario" name="horario"  placeholder="Lunes a Miércoles, 7:00PM" value="<?php echo $datos['datos']['horario']; ?>">
 						<div class="alert alert-danger" role="alert" id="alert_horario" style="display:none;"></div>
 					</div>
-					
+
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Intensidad horaria:</label>
 						<input type="text" class="form-control" id="intensidadhoraria" name="intensidadhoraria"  placeholder="60 Horas" value="<?php echo $datos['datos']['intensidadhoraria']; ?>">
 						<div class="alert alert-danger" role="alert" id="alert_intensidadhoraria" style="display:none;"></div>
 					</div>
-					
+
 					<div class="form-group">
-						<label for="exampleFormControlInput1">Acerca del docente:</label>					
+						<label for="exampleFormControlInput1">Acerca del docente:</label>
 						<textarea class="form-control" id="acercadelinstructor" name="acercadelinstructor" rows="3"><?php echo $datos['datos']['acercadelinstructor']; ?></textarea>
 						<div class="alert alert-danger" role="alert" id="alert_acercadelinstructor" style="display:none;"></div>
 					</div>
-					
-					
+
+
 					<div class="form-group">
-						<label for="exampleFormControlInput1">Curso destacado:</label>												
+						<label for="exampleFormControlInput1">Curso destacado:</label>
 						<select class="form-control"  id="destacado" name="destacado">
 							<option value="0" <?php if($datos['datos']['destacado']=='0'){ ?> selected="selected" <?php } ?>>No</option>
 							<option value="1" <?php if($datos['datos']['destacado']=='1'){ ?> selected="selected" <?php } ?>>Si</option>
 						</select>
-						
+
 						<div class="alert alert-danger" role="alert" id="alert_destacado" style="display:none;"></div>
 					</div>
-					
-					
+
+
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Paquete de cursos: Si al comprar este curso se matriculrá en otros cursos, no en este.</label>
 						<input type="text" class="form-control" id="paquetecursos" name="paquetecursos"  placeholder="Ids, de cursos separados por comas, ej: 34,99,89 (Debe estar pendiente que los cursos no estén vencidos)." value="<?php for($i=0; $i<count($datos['datos']['paquetecursos']); $i++){  echo $datos['datos']['paquetecursos'][$i]; if(count($datos['datos']['paquetecursos'])-1!=$i){ ?>,<?php } } ?>">
 						<div class="alert alert-danger" role="alert" id="alert_paquetecursos" style="display:none;"></div>
 					</div>
-					
+
 					<div class="form-group">
 						<button type="button" class="btn btn-primary" id="botonguardar">Guardar</button>
 					</div>
@@ -280,8 +280,8 @@
 					<?php } ?>
 					<a href="https://www.instagram.com/cec_americana" target="_blank"><i class='fab fa-instagram' style='font-size:24px; margin-right:10px; color:#BB29A6;'></i></a>
 					<a href="https://www.facebook.com/cecamericana" target="_blank"><i class='fab fa-facebook' style='font-size:24px; color:#3b5998;'></i></a><br>
-					
-					<li><a href="#">Términos y Condiciones</a></li>					
+
+					<li><a href="#">Términos y Condiciones</a></li>
 					<li><a href="#">Privacidad</a></li>
 				</ul>
 				<div class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -290,7 +290,7 @@
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
 			</div>
 		</div>
-	</footer> 
+	</footer>
 	<!-- footer section end -->
 
 
@@ -303,25 +303,25 @@
 	<script src="<?php echo URLPROYECTO; ?>vistas/js/main.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"></script>
 	<script src="<?php echo URLPROYECTO; ?>vistas/js/interfaz.js"></script>
-	<script src='<?php echo URLPROYECTO; ?>vistas/js/kitfontawesome.js'></script> 
+	<script src='<?php echo URLPROYECTO; ?>vistas/js/kitfontawesome.js'></script>
 	<?php
-		include_once('comunbottom.php');				
+		include_once('comunbottom.php');
 	?>
-	
+
 	<script style="text/javascript">
 		var contadorprereqisito = <?php echo $cont; ?>;
 		window.onload = function(){
-			
+
 			$('#botonguardar').on('click', function(){
-											
+
 				let itemsprerequisitos = '';
 				$('textarea[name^="prerequisitoitem"]').each(function() {
 					if(itemsprerequisitos!=''){
 						itemsprerequisitos+='$$|';
 					}
-					itemsprerequisitos+=$(this).val();					
-				});				
-				
+					itemsprerequisitos+=$(this).val();
+				});
+
 				$(this).attr('disabled', 'disabled');
 				var datax = {
 					descripcioncorta: $('#descripcioncorta').val(),
@@ -336,39 +336,39 @@
 					destacado:  $('#destacado').val(),
 					paquetecursos: $('#paquetecursos').val()
 				};
-				$("div[id^='alert_']").each(function(i){  $(this).hide(); });									
-				$.ajax({type: "PUT", url: "<?php echo URLBASE; ?>/info/api/curso/<?php echo $datos['datos']['id']; ?>", data:JSON.stringify(datax), success: function(resp){				
+				$("div[id^='alert_']").each(function(i){  $(this).hide(); });
+				$.ajax({type: "PUT", url: "<?php echo URLBASE; ?>/info/api/curso/<?php echo $datos['datos']['id']; ?>", data:JSON.stringify(datax), success: function(resp){
 					$('#botonguardar').attr('disabled', false);
-					resp = jQuery.parseJSON(resp);			
+					resp = jQuery.parseJSON(resp);
 					switch(resp.estado){
-						case 'ok':														
-							var pop = new Popup('popup', 'Listo', '<br>Datos guardados.<br><br>', 400, 2, function(){								
+						case 'ok':
+							var pop = new Popup('popup', 'Listo', '<br>Datos guardados.<br><br>', 400, 2, function(){
 								pop.cerrar();
 							});
 						break;
 						case 'error':
-							var datos = resp.datos;							
+							var datos = resp.datos;
 							$.each(datos, function(index, dat){
 								$('#alert_'+dat[0]).html(dat[1]).show();
 							});
 							if(datos.length>0){
-								var pop = new Popup('popup', 'Errores', '<br><span style="font-color:red">Hay errores, por favor revisar</span>.<br><br>', 400, 2, function(){								
+								var pop = new Popup('popup', 'Errores', '<br><span style="font-color:red">Hay errores, por favor revisar</span>.<br><br>', 400, 2, function(){
 									pop.cerrar();
 								});
 							}
 						break;
 					}
-				}});	
-				
+				}});
+
 			});
 			$('#botonagregarprerequisito').on('click', function(){
 				$('#prerequisitolistado').append('<hr><textarea class="form-control" name="prerequisitoitem[]" rows="2"></textarea>');
 				$('#prerequisitolistado').append('<div class="alert alert-danger" role="alert" id="alert_prerequisitoitem_'+contadorprereqisito+'" style="display:none;"></div>');
 				contadorprereqisito++;
 			});
-			
+
 		}
 	</script>
-	
+
 </body>
 </html>

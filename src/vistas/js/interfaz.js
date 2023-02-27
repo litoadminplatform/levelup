@@ -5,7 +5,7 @@ var Loader = (function(){
      *
      * @param {string} filename the relative filename where to find the CSS file
      * @param {function} optional callback
-     * 
+     *
      * @return {Loader} for chaining
      */
     var loadCss = function(filename, callback){
@@ -33,7 +33,7 @@ var Loader = (function(){
      *
      * @param {string} filename the relative filename where to find the javascript file
      * @param {function} optional callback
-     * 
+     *
      * @return {Loader} for chaining
      */
     loadJs = function(filename, callback){
@@ -58,10 +58,10 @@ var Loader = (function(){
 
      /**
      * Load a resource based on it's filename
-     * 
+     *
      * @param {string} filename the relative filename where to find the javascript file
      * @param {function} optional callback
-     * 
+     *
      * @return {Loader} for chaining
      */
     load = function(filename, callback){
@@ -76,14 +76,14 @@ var Loader = (function(){
                 default:
                     console.warn('Could not determine file type for ' + filename + '.\nPlease use loadJs or loadCss.');
             }
-        }   
+        }
     },
 
     /**
      * Checks if a css file already exists on the page
-     * 
+     *
      * @param {string} filename the relative filename where to find the CSS file
-     * 
+     *
      * @return boolean
      */
     cssExists = function(filename){
@@ -95,7 +95,7 @@ var Loader = (function(){
 
     /**
      * Remove css from the current page
-     */ 
+     */
     unloadCss = function(regex,callback){
         var css = document.getElementsByTagName("link");
         var parent = document.getElementsByTagName("head")[0];
@@ -111,9 +111,9 @@ var Loader = (function(){
     }
     /**
      * Checks if a js file already exists on the page
-     * 
+     *
      * @param {string} filename the relative filename where to find the JavaScript file
-     * 
+     *
      * @return boolean
      */
     jsExists = function(filename){
@@ -143,102 +143,102 @@ var Loader = (function(){
 /*fin del otro popup*/
 
 
-/*  EL POPUP 
-  Depende de jquery, perviamente cargando Popup.css, 
+/*  EL POPUP
+  Depende de jquery, perviamente cargando Popup.css,
   @iddiv, es el id de un div existente o no donde se creara el  popup. recomiendo que el id tenga el sufijo: pop.  este campo es obligatorio.
   @titulo: el titulo de la ventana (debe venir el el idioma que es) no es obligatorio, puede ir vacio '', pero no puede colocar null o undefined
   @mensaje: el mensaje a mostrar, (debe venir el el idioma que es) no es obligatorio, puede ir vacio '', pero no puede colocar null o undefined.
-  @ancho: el ancho de la ventana flotante  
+  @ancho: el ancho de la ventana flotante
   @botones: segun el numero muestra diferentes sets de botones:  2:aceptar, 1: cancelar, 3:aceptar y cancelar.
-  @funcionaceptar : define cual sera la funcion a ejecutar cuando se le de clic en aceptar (si estÃ¡ el boton), si no se necesita use null.  
+  @funcionaceptar : define cual sera la funcion a ejecutar cuando se le de clic en aceptar (si estÃ¡ el boton), si no se necesita use null.
 */
 /*
-   si se desconoce el titulo de la ventana, o el mensaje (muchas veces pasara) habra que traerlos mediante un json usando ajax, ahi es cuando aparece cargarndo, 
+   si se desconoce el titulo de la ventana, o el mensaje (muchas veces pasara) habra que traerlos mediante un json usando ajax, ahi es cuando aparece cargarndo,
    hay que hacer las funciones setTitulo y y setMensaje para este objeto Popup.
 */
 Popup = function(iddiv, titulo, mensaje, ancho, botones, funcionaceptar){
-	this.iddiv=iddiv; 
+	this.iddiv=iddiv;
 	this.titulo=titulo;
 	this.mensaje=mensaje;
-	this.ancho=ancho;	
+	this.ancho=ancho;
 	this.botones=botones;
-	this.funcionaceptar=funcionaceptar;			
-	/*if(!$('#deshabilitado').length){ 
+	this.funcionaceptar=funcionaceptar;
+	/*if(!$('#deshabilitado').length){
 		$('body').append('<div id="deshabilitado"></div>');
-	}*/	
+	}*/
 	//verifica si ese div existe o no, si no lo crea.
-	if(!$('#'+iddiv).length){ 
+	if(!$('#'+iddiv).length){
 		$('body').append('<div id="'+iddiv+'"></div>');
-	}	
+	}
 	$('#'+iddiv).magnificPopup({
 		closeOnBgClick:false,
 		showCloseBtn:false,
 		enableEscapeKey:false,
 		items: {
 			src: '<div class="white-popup">Loading ...</div>',
-			type: 'inline'			
+			type: 'inline'
 		}
-	});	
-				
+	});
+
 	$('#'+iddiv).trigger('click');  //hace que se muestre el popup
-	
-	if(titulo=='' && mensaje==''){		
+
+	if(titulo=='' && mensaje==''){
 	}else{
-		this.mostrar({"titulo":titulo,"mensaje":mensaje});			
-	}		
+		this.mostrar({"titulo":titulo,"mensaje":mensaje});
+	}
 }
 /*
-Esta funcion ha de llamarse manualmente en caso de que titulo y mensaje hayan sido vacios en el constructor, y tambien una ves que se haya obtenido la data de la base de datos, y la funcion a ejecutarse estÃ© lista. 
-	@jso: un objeto JSON del tipo : {"titulo":titulo,"mensaje":mensaje}	
+Esta funcion ha de llamarse manualmente en caso de que titulo y mensaje hayan sido vacios en el constructor, y tambien una ves que se haya obtenido la data de la base de datos, y la funcion a ejecutarse estÃ© lista.
+	@jso: un objeto JSON del tipo : {"titulo":titulo,"mensaje":mensaje}
 	//argumentos opcionales no listados.
 	@arguments[2] = es la forma de recibir mas datos opcionales, pero no los vamos a usar.
 */
 Popup.prototype.mostrar = function(jso){
 	//ojo con los nombres y los id no se pueden repetir, y pueden crearse varios popup ala vez.
-	//if(arguments[2]){ alert("llegaron los botones");}	
+	//if(arguments[2]){ alert("llegaron los botones");}
 	$('#'+this.iddiv).html(''); //limpiardiv
 	var that = this; //el secreto para darle click a cerrar!
-	
+
 	var inyectar = '<h3 id="'+this.iddiv+'poptitulo">'+jso.titulo+'</h3>';
 	//inyectar+='<hr class="bs-docs-separator">';
 	inyectar+='<div id="'+this.iddiv+'popmensaje">'+jso.mensaje+'</div>';
 	inyectar+='<div id="'+this.iddiv+'poppiebotones" style="text-align:right;"></div>';
-			
+
 	$('#'+this.iddiv).magnificPopup({
 		closeOnBgClick:false,
 		showCloseBtn:false,
 		items: {
 			src: '<div id="'+this.iddiv+'hijo" class="white-popup">'+inyectar+'</div>',
-			type: 'inline'			
+			type: 'inline'
 		}
-	});	
+	});
 	$('#'+this.iddiv).trigger('click');
-		
+
 	$('#'+this.iddiv+'hijo').css("max-width", this.ancho+"px");
-	
+
 	if(this.botones == 2 || this.botones == 3){
 		this.setBoton("Aceptar", this.iddiv+"popbutac", this.iddiv+"popbutac", "botonaceptar", this.funcionaceptar);
 	}
 	if(this.botones == 1 || this.botones == 3){
-		this.setBoton("Cancelar", this.iddiv+"popbutca", this.iddiv+"popbutca", "botoncancelar", null); 		
+		this.setBoton("Cancelar", this.iddiv+"popbutca", this.iddiv+"popbutca", "botoncancelar", null);
 		$('#'+this.iddiv+"popbutca").bind('click', function(){ that.cerrar(null); });
 	}
-	
+
 }
 /*esta funcion solo ha de ser usada cuando ya existen los contenedores para el titulo y el mensaje, esto es para cambiar en cualquier momento el titulo de la ventana*/
-Popup.prototype.setTitulo = function(tituloset){	
+Popup.prototype.setTitulo = function(tituloset){
 	if(document.getElementById(this.iddiv+"poptitulo")){
 		$('#'+this.iddiv+'poptitulo').text(tituloset);
 	}
-} 
+}
 /*esta funcion solo ha de ser usada cuando ya existen los contenedores para el titulo y el mensaje, esto es para cambiar en cualquier momento el mensaje de la ventana*/
-Popup.prototype.setMensaje = function(mensajeset){	
-	if(document.getElementById(this.iddiv+"popmensaje")){		
+Popup.prototype.setMensaje = function(mensajeset){
+	if(document.getElementById(this.iddiv+"popmensaje")){
 		document.getElementById(this.iddiv+"popmensaje").innerHTML=mensajeset;
 	}
 }
 /*establece el texto y la funcion del boton aceptar o cancelar, si exiete, dependiendo del primer argumento*/
-/* si no va a establecer texto coloque "" , 
+/* si no va a establecer texto coloque "" ,
    si no va a establecer funcion coloquela en null
    si cambia la funcion del boton cerrar, esta se ejecutarÃ¡ solo cuando termine de cerrarse la ventana.
 */
@@ -246,18 +246,18 @@ Popup.prototype.setMensaje = function(mensajeset){
 Popup.prototype.changeButton = function(boton, texto, funcion){
 	var nid = '';
 	if(boton == 2){ nid='popbutac'; } else { nid='popbutca';}
-	if(document.getElementById(this.iddiv+nid)){ //si existe el boton aceptar.		
-		if(texto!=""){			
+	if(document.getElementById(this.iddiv+nid)){ //si existe el boton aceptar.
+		if(texto!=""){
 			$('#'+this.iddiv+nid).text(texto);
 		}
 		if(funcion!=null){
 			if(boton == 2){
 				//funciona pero salen los dos, hay que eliminar el primero.
-				$('#'+this.iddiv+nid).unbind('click');			
+				$('#'+this.iddiv+nid).unbind('click');
 				//agregaFuncion(this.iddiv+"popbutac", "click",  function(){ funcion(); }); DESFASADO, nueva abajo
 				$('#'+this.iddiv+nid).bind('click', function(){ funcion(); });
 			}else{
-				if(boton == 1){ 
+				if(boton == 1){
 				    var that = this;
 					$('#'+this.iddiv+nid).unbind('click');
 					$('#'+this.iddiv+"popbutca").bind('click', function(){ that.cerrar(funcion); });
@@ -269,7 +269,7 @@ Popup.prototype.changeButton = function(boton, texto, funcion){
 /*
    @titulo, el texto que tendra el boton
    @id, el id del boton.
-   @nombre, el nombre que le correspondera dentro del dom   
+   @nombre, el nombre que le correspondera dentro del dom
    @funcion que ejecutara cuando se presione.
 */
 Popup.prototype.setBoton = function(titulo, id, nombre, clase, funcion){
@@ -279,20 +279,20 @@ Popup.prototype.setBoton = function(titulo, id, nombre, clase, funcion){
 	if(funcion){
 		$('#'+id).unbind('click');
 		$('#'+id).bind('click', function(){ funcion(); });
-	}		
-}
-Popup.prototype.desactivaBoton = function(codigoboton){ /*codigo boton 1:cancelar 2:aceptar*/	
-	if(codigoboton==1){
-		$('#'+this.iddiv+"popbutca").attr('disabled', 'disabled');
-	}else{ 
-		$('#'+this.iddiv+"popbutac").attr('disabled', 'disabled');		
 	}
 }
-Popup.prototype.quitaBoton = function(codigoboton){ /*codigo boton 1:cancelar 2:aceptar*/	
+Popup.prototype.desactivaBoton = function(codigoboton){ /*codigo boton 1:cancelar 2:aceptar*/
+	if(codigoboton==1){
+		$('#'+this.iddiv+"popbutca").attr('disabled', 'disabled');
+	}else{
+		$('#'+this.iddiv+"popbutac").attr('disabled', 'disabled');
+	}
+}
+Popup.prototype.quitaBoton = function(codigoboton){ /*codigo boton 1:cancelar 2:aceptar*/
 	if(codigoboton==1){
 		$('#'+this.iddiv+"popbutca").remove();
-	}else{ 
-		$('#'+this.iddiv+"popbutac").remove();		
+	}else{
+		$('#'+this.iddiv+"popbutac").remove();
 	}
 }
 Popup.prototype.activaBoton = function(codigoboton){ /*codigo boton 1:cancelar 2:aceptar*/
@@ -303,31 +303,31 @@ Popup.prototype.activaBoton = function(codigoboton){ /*codigo boton 1:cancelar 2
 	}
 }
 /*funcion extra, es una funcion que se ejecutara una ves la ventana se haya cerrado*/
-Popup.prototype.cerrar = function(funcionextra){ 	
+Popup.prototype.cerrar = function(funcionextra){
 	$.magnificPopup.close();  //cierra el popupo que estÃ© abierto.
 	if(funcionextra!=null){
 		funcionextra();
-	}		
+	}
 }
 //fin del popup
 
 
 //PEQUEÑO POPUP DE LA ESQUINA.
 Popupcorner = function(html, maxwidth){
-	this.html=html; 	
-	if(!$('#corner-slider').length){ 
+	this.html=html;
+	if(!$('#corner-slider').length){
 		$('body').append('<div id="corner-slider"></div>');
 	}
 	if($(window).width() < 770){
 		$('#corner-slider').css('maxWidth', '100%');
-	}else{	
+	}else{
 		if($(window).width() < 1305){
 			$('#corner-slider').css('maxWidth', '30%');
 		}else{
 			$('#corner-slider').css('maxWidth', maxwidth+'%');
-		}	
+		}
 	}
-	$('#corner-slider').html(html);			
+	$('#corner-slider').html(html);
 	$("#corner-slider").cornerSlider({
 		showAtScrollingHeight : 0,
 		directionEffect       : "right",
@@ -338,7 +338,7 @@ Popupcorner = function(html, maxwidth){
 		//onClose               : function() {
 			//alert("Not to be seen again in the near future.");
 		//},
-	});	
+	});
 }
 
 //FIN DEL PEQUEÑO POPUP DE LA ESQUINA
@@ -359,7 +359,7 @@ function mostrarId(idetiqueta){
 /*
 	muestra el contenido de un div en un popup, este div podria estar oculto ya que lo que se mostrara es el contenido mas no el div mismo. el problema radida en que moodle al intentar meter html dentro de una funcion inline la destroza.
 */
-function popUpSimpleDivAceptar(iddiv, anchoventana, tituloventana, titulobotonaceptar){	
+function popUpSimpleDivAceptar(iddiv, anchoventana, tituloventana, titulobotonaceptar){
 	var datos = $('#'+iddiv).html();
 	var pop = new Popup('popup', tituloventana, datos, anchoventana, 2, function(){
 		pop.cerrar();
@@ -370,12 +370,12 @@ function popUpSimpleDivAceptar(iddiv, anchoventana, tituloventana, titulobotonac
 function limpiarRespuesta(resp){
 	var n = resp.indexOf('{"estado":');
 	//alert("encontrado en la posicion "+n+" tamaño totaL:"+resp.length);
-	if(n!=-1){		
+	if(n!=-1){
 		return resp.slice(n, resp.length);
 	}else{
 		//alert("no hubo errores");
-		return resp;		
-	}	
+		return resp;
+	}
 }
 
 function celebrar(idelemento){
@@ -388,25 +388,25 @@ function prendeApaga(idobjeto, colorfondo, colorfuente){
 	var colorfondoactual = $("#"+idobjeto).css("background-color");
 	prende(idobjeto, 0, colorfondo, colorfuente, colorfondoactual, colorfuenteactual);
 }
-/*Animar color de fondo de un div*/	   
-function prende(idobjeto, contador, colorfondo, colorfuente, colorfondoactual, colorfuenteactual){					
+/*Animar color de fondo de un div*/
+function prende(idobjeto, contador, colorfondo, colorfuente, colorfondoactual, colorfuenteactual){
 	$("#"+idobjeto).animate({
 		backgroundColor: colorfondo,
-		color: colorfuente,		
+		color: colorfuente,
 	}, 500);
-	setTimeout(function(){ 
-		apaga(idobjeto, contador, colorfondo, colorfuente, colorfondoactual, colorfuenteactual); 
+	setTimeout(function(){
+		apaga(idobjeto, contador, colorfondo, colorfuente, colorfondoactual, colorfuenteactual);
 	},500);
 }
 function apaga(idobjeto, contador, colorfondo, colorfuente, colorfondoactual, colorfuenteactual){
 	$("#"+idobjeto).animate({
 		backgroundColor: colorfondoactual,
-		color: colorfuenteactual,	
+		color: colorfuenteactual,
 	}, 500 );
 	contador++;
 	if(contador<5){
-		setTimeout(function(){ 
-			prende(idobjeto, contador, colorfondo, colorfuente, colorfondoactual, colorfuenteactual); 
+		setTimeout(function(){
+			prende(idobjeto, contador, colorfondo, colorfuente, colorfondoactual, colorfuenteactual);
 		},500);
 	}
 }
@@ -415,12 +415,12 @@ function apaga(idobjeto, contador, colorfondo, colorfuente, colorfondoactual, co
 	nota: divscroll es el elemento que tinee el scroll debe escribir entre comillas el eequivalente en modo jquery por ejeplo
 	si desea hacer scroll en un div cuya clase sea 'efectos' debe pasar el parametro asi '.efectos', de la misma forma podria pasar mas de un elemento html,body. Si se tratara del id de un elemento: #idelemento
 */
-function scrollToElement(divscroll, idelementobjetivo, segundos, separacionsuperior, funcionejecutar){	
-	var targetOffset = $(divscroll).offset().top;	
+function scrollToElement(divscroll, idelementobjetivo, segundos, separacionsuperior, funcionejecutar){
+	var targetOffset = $(divscroll).offset().top;
 	var targetObjetivo = $('#'+idelementobjetivo).offset().top;
 	targetObjetivo = targetObjetivo-separacionsuperior;
-	//$("body").scrollTop(targetOffset);		
-	$(divscroll).animate({scrollTop: targetObjetivo}, segundos, function(){ funcionejecutar(); });	
+	//$("body").scrollTop(targetOffset);
+	$(divscroll).animate({scrollTop: targetObjetivo}, segundos, function(){ funcionejecutar(); });
 	return false;
 }
 
