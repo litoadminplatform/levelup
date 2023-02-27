@@ -56,7 +56,7 @@
 				display:none;
 			}	
 			.page-info-section {
-				height: 500px !important;
+				height: 100% !important;
 			}		
 		}
 		
