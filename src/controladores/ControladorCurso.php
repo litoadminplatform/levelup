@@ -337,6 +337,7 @@
 					$respuesta['datos']['docentenombre'] = '';
 					$respuesta['datos']['docentefoto'] = '';
 					$respuesta['datos']['imagencurso'] = '';
+					$respuesta['datos']['imagencursopequena'] = '';					
 
 					$cursodocente = $sitio->getMatriculados($id, 0, array(3), true);
 					if(isset($cursodocente[0])){
@@ -367,12 +368,15 @@
 
 
 					//buscamos la imagen del curso..
+					$indeximg = ['', ''];
+					$tamimg = [0, 0];
 					$fs = get_file_storage();
 					$context = \context_course::instance($id);
 					$files   = $fs->get_area_files($context->id, 'course', 'overviewfiles', false, 'filename', false);
 					if (count($files) > 0) {
+						$cont = 0;
 						foreach ($files as $file) {
-							if ($file->is_valid_image()) {
+							if ($file->is_valid_image()) {								
 								$imagepath = '/' . $file->get_contextid() .
 										'/' . $file->get_component() .
 										'/' . $file->get_filearea() .
@@ -380,23 +384,30 @@
 										$file->get_filename();
 								$imageurl = file_encode_url($CFG->wwwroot . '/pluginfile.php', $imagepath,
 										false);
-								$respuesta['datos']['imagencurso'] = \html_writer::tag('div',
+								$indeximg[$cont] = \html_writer::tag('div',
 										\html_writer::empty_tag('img', array('src' => $imageurl)),
 										array('class' => 'courseimage'));
 								//usa la primera imagen encontrada.
-
+								$tamimg[$cont] = $file->get_filesize();
 								include_once(RUTAPROYECTO.'src/clases/simplehtmldom_1_9_1/simple_html_dom.php');
-								$html = str_get_html($respuesta['datos']['imagencurso']);
+								$html = str_get_html($indeximg[$cont]);
 								if($html){
 									if(trim($html->find('img')[0]->src)!=''){
-										$respuesta['datos']['imagencurso'] = $html->find('img')[0]->src;
+										$indeximg[$cont] = $html->find('img')[0]->src;;										
 									}
 								}
-								break;
+								$cont++;
+								if($cont>1){
+									break;
+								}
 							}
 						}
 					}
-
+					if($tamimg[1]>$tamimg[0]){
+						$indeximg = array_reverse($indeximg);
+					}
+					$respuesta['datos']['imagencurso'] = $indeximg[0];
+					$respuesta['datos']['imagencursopequena'] = $indeximg[1];
 					//fin de buscar la imagen del curso
 
 

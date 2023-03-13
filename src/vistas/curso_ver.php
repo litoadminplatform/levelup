@@ -198,14 +198,7 @@
 					</div>
 				</div>
 			</div>
-			<?php
-				if($datos['datos']['imagencurso']!=''){
-					?><img class="imageninferior" src="<?php echo URLBASE; ?><?php echo $datos['datos']['imagencurso']; ?>" alt="" class="course-preview" style="width:100%;"><?php
-				}else{
-					?><img class="imageninferior" src="<?php echo URLPROYECTO; ?>vistas/img/courses/single.jpg" alt="" class="course-preview"><?php
-				}
-			?>
-			
+			<img class="imageninferior" src="<?php echo URLBASE; ?><?php echo ($datos['datos']['imagencursopequena']!='') ? URLBASE.$datos['datos']['imagencursopequena'] : (($datos['datos']['imagencurso']!='') ? URLBASE.$datos['datos']['imagencurso'] : URLPROYECTO.'vistas/img/courses/'.rand(1, 8).'.jpg'); ?>" alt="" class="course-preview" style="width:100%;">
 			<div class="row" style="padding-top:37px;">
 				<div class="col-lg-10 offset-lg-1 course-list">
 					
@@ -298,7 +291,7 @@
 							<!-- course -->								
 							<div class="course-item">
 								<a href="<?php echo URLBASE; ?>/info/curso/<?php echo $curso['id']; ?>/<?php echo $curso['nombreamigable']; ?>">
-									<div class="course-thumb set-bg" data-setbg="<?php if($curso['imagencurso']!=''){ echo URLBASE.''.$curso['imagencurso']; }else{ echo URLPROYECTO; ?>vistas/img/courses/<?php echo rand(1, 8); ?>.jpg<?php } ?>">
+									<div class="course-thumb set-bg" data-setbg="<?php echo ($curso['imagencursopequena']!='') ? URLBASE.$curso['imagencursopequena'] : (($curso['imagencurso']!='') ? URLBASE.$curso['imagencurso'] : URLPROYECTO.'vistas/img/courses/'.rand(1, 8).'.jpg'); ?>">
 										<?php if($curso['precio']!=''){ ?><div class="price">Precio: $<?php echo $curso['precio']; ?></div><?php } ?>
 									</div>
 								</a>
@@ -500,20 +493,8 @@
 		function comprarCurso(idcurso, autocheck){
 			var inyectar = '<table border="0">';
 				inyectar+='<tr>';
-					inyectar+='<td style="width:30%;">';
-						<?php
-							if($datos['datos']['imagencurso']!=''){
-								?>
-									inyectar+='<img src="<?php echo URLBASE; ?><?php echo $datos['datos']['imagencurso']; ?>" alt="" style="width:100%;">';
-								<?php
-							}else{
-								?>
-									inyectar+='<img src="<?php echo URLPROYECTO; ?>vistas/img/courses/single.jpg" alt="">';									
-								<?php
-							}
-						?>
-						
-						
+					inyectar+='<td style="width:30%;">';					
+						inyectar+='<img src="<?php echo ($datos['datos']['imagencursopequena']!='') ? URLBASE.$datos['datos']['imagencursopequena'] : (($datos['datos']['imagencurso']!='') ? URLBASE.$datos['datos']['imagencurso'] : URLPROYECTO.'vistas/img/courses/single.jpg'); ?>" alt="" style="width:100%;">';
 					inyectar+='</td>';
 					inyectar+='<td style="width:70%; padding-left: 10px; vertical-align: top;">';
 						inyectar+='<span style="font-weight:bold;">Curso: </span><?php echo $datos['datos']['fullname']; ?><br><span style="font-weight:bold;">Precio:</span> $<?php echo $datos['datos']['precio']; ?><br><span style="font-weight:bold;">Fecha de inicio: </span><?php echo $datos['datos']['startdateesp']; ?>';

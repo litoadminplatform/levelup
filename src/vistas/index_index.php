@@ -273,7 +273,7 @@
 								<div class="mix col-lg-3 col-md-4 col-sm-6 <?php echo $curso['categorianormalizado']; ?>">
 									<div class="course-item">
 										<a href="<?php echo URLBASE; ?>/info/curso/<?php echo $curso['id']; ?>/<?php echo $curso['nombreamigable']; ?>">
-										<div class="course-thumb set-bg" data-setbg="<?php if($curso['imagencurso']!=''){ echo URLBASE.''.$curso['imagencurso']; }else{ echo URLPROYECTO; ?>vistas/img/courses/<?php echo rand(1, 8); ?>.jpg<?php } ?>">
+										<div class="course-thumb set-bg" data-setbg="<?php echo ($curso['imagencursopequena']!='') ? URLBASE.$curso['imagencursopequena'] : (($curso['imagencurso']!='') ? URLBASE.$curso['imagencurso'] : URLPROYECTO.'vistas/img/courses/'.rand(1, 8).'.jpg'); ?>">
 											<?php if($curso['precio']!=''){ ?><div class="price">Precio: $<?php echo $curso['precio']; ?></div><?php } ?>
 										</div>
 										</a>
@@ -321,7 +321,7 @@
 						}						
 						?>
 							<div class="featured-course course-item">							
-								<div class="course-thumb set-bg" style="cursor: pointer;" onclick="abrirUrl('<?php echo URLBASE; ?>/info/curso/<?php echo $curso['id']; ?>/<?php echo $curso['nombreamigable']; ?>', '', false)" data-setbg="<?php if($curso['imagencurso']!=''){ ?><?php echo URLBASE; ?><?php echo $curso['imagencurso']; ?><?php }else{ ?><?php echo URLPROYECTO; ?>vistas/img/courses/f-<?php echo $indexalternar+1; ?>.jpg"><?php } ?>">
+								<div class="course-thumb set-bg" style="cursor: pointer;" onclick="abrirUrl('<?php echo URLBASE; ?>/info/curso/<?php echo $curso['id']; ?>/<?php echo $curso['nombreamigable']; ?>', '', false)" data-setbg="<?php echo ($curso['imagencursopequena']!='') ? URLBASE.$curso['imagencursopequena'] : (($curso['imagencurso']!='') ? URLBASE.$curso['imagencurso'] : URLPROYECTO.'vistas/img/courses/f-'.($indexalternar+1).'.jpg'); ?>">
 									<?php if($curso['precio']!=''){ ?><div class="price">Precio: $<?php echo $curso['precio']; ?></div><?php } ?>
 								</div>
 								<div class="row">
