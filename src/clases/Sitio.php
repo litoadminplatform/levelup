@@ -170,8 +170,7 @@
 									$docentefoto = '';
 									$cursodocente = $this->getMatriculados($row_d['id'], 0, array(3), true);
 									$matriculados = $this->getMatriculados($row_d['id'], 0, array(5), true);
-									$conteomatriculados = count($matriculados);
-									$imagencurso = '';
+									$conteomatriculados = count($matriculados);									
 									if(isset($cursodocente[0])){
 
 										$docenteid = $cursodocente[0]['userid'];
@@ -202,9 +201,12 @@
 									$fs = get_file_storage();
 									$context = \context_course::instance($row_d['id']);
 									$files   = $fs->get_area_files($context->id, 'course', 'overviewfiles', false, 'filename', false);
+									$indeximg = ['', ''];
+									$tamimg = [0, 0];
 									if (count($files) > 0) {
+										$cont = 0;
 										foreach ($files as $file) {
-											if ($file->is_valid_image()) {
+											if ($file->is_valid_image()) {												
 												$imagepath = '/' . $file->get_contextid() .
 														'/' . $file->get_component() .
 														'/' . $file->get_filearea() .
@@ -212,23 +214,29 @@
 														$file->get_filename();
 												$imageurl = file_encode_url($CFG->wwwroot . '/pluginfile.php', $imagepath,
 														false);
-												$imagencurso = \html_writer::tag('div',
+												$indeximg[$cont] = \html_writer::tag('div',
 														\html_writer::empty_tag('img', array('src' => $imageurl)),
 														array('class' => 'courseimage'));
 												//usa la primera imagen encontrada.
-
+												$tamimg[$cont] = $file->get_filesize();
 												include_once(RUTAPROYECTO.'src/clases/simplehtmldom_1_9_1/simple_html_dom.php');
-												$html = str_get_html($imagencurso);
+												$html = str_get_html($indeximg[$cont]);
 												if($html){
 													if(trim($html->find('img')[0]->src)!=''){
-														$imagencurso = $html->find('img')[0]->src;
+														$indeximg[$cont] = $html->find('img')[0]->src;														
 													}
 												}
-												break;
+												$cont++;
+												if($cont>1){
+													break;
+												}
+												//break;
 											}
 										}
 									}
-
+									if($tamimg[1]>$tamimg[0]){										
+										$indeximg = array_reverse($indeximg);
+									}
 									//fin de buscar la imagen del curso
 
 
@@ -239,7 +247,7 @@
 									$nombreamigable = $comun->generaUrlAmigable($row_d['fullname']);
 
 
-									$respuesta['datos'][] = array('id'=>$row_d['id'], 'imagencurso'=>$imagencurso, 'category'=>$row_d['category'], 'categoria'=>$row_d['categoria'], 'categorianormalizado'=>$categorianormalizado, 'fullname'=>$row_d['fullname'], 'nombreamigable'=>$nombreamigable, 'startdate'=>$row_d['startdate'], 'startdateesp'=>$startdateesp, 'enddate'=>$row_d['enddate'], 'enddateesp'=>$enddateesp, 'docenteid'=>$docenteid, 'docentenombre'=>$docentenombre, 'docentefoto'=>$docentefoto, 'conteomatriculados'=>$conteomatriculados);
+									$respuesta['datos'][] = array('id'=>$row_d['id'], 'imagencurso'=>$indeximg[0], 'imagencursopequena'=>$indeximg[1], 'category'=>$row_d['category'], 'categoria'=>$row_d['categoria'], 'categorianormalizado'=>$categorianormalizado, 'fullname'=>$row_d['fullname'], 'nombreamigable'=>$nombreamigable, 'startdate'=>$row_d['startdate'], 'startdateesp'=>$startdateesp, 'enddate'=>$row_d['enddate'], 'enddateesp'=>$enddateesp, 'docenteid'=>$docenteid, 'docentenombre'=>$docentenombre, 'docentefoto'=>$docentefoto, 'conteomatriculados'=>$conteomatriculados);
 								}
 							}while($row_d = pg_fetch_array($result_d));
 						}
