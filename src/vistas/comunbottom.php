@@ -37,34 +37,66 @@
 	function registrate(){
 		var inyectar = '';
 		inyectar+='<form id="formregistro" class="signup-form counter_form_content d-flex flex-column align-items-center justify-content-center" action="#" style="margin-bottom:25px;">';
-			inyectar+='<h4>Regístrate</h4>';
+			inyectar+='<h4>Regístrate</h4><br>';
+			
+			inyectar+='<div class="container">';
+			
+				inyectar+='<span style="color:red;">**<span> Aparecerá en certificados.</span><br>';
+				inyectar+='<span style="color:red;">*<span> Aparecerá en las facturas de las compras.</span>';
+								
+				inyectar+='<div class="row">';
+					inyectar+='<div class="col-sm">';
+					
+						inyectar+='<label style="color: #878787;">Nombres <span style="color:red; font-weight:bold;">**<span></label>';
+						inyectar+='<input type="text" id="nombres" name="nombres" class="campologin" placeholder="" required="required" maxlength="64" style="text-transform: uppercase; border: 3px solid #ccc;">';
+					inyectar+='</div>';
+					inyectar+='<div class="col-sm">';
+						inyectar+='<label style="color: #878787;">Apellidos <span style="color:red; font-weight:bold;">**<span></label>';
+						inyectar+='<input type="text" id="apellidos" name="apellidos" class="campologin" placeholder="" required="required" maxlength="64" style="text-transform: uppercase; border: 3px solid #ccc;">';
+					inyectar+='</div>';				
+				inyectar+='</div>';
 
-			inyectar+='<p>Nombres <span style="color:blue; font-size:10px;">(Aparecerá en certificados)</span></p>';
-			inyectar+='<input type="text" id="nombres" name="nombres" class="campologin" placeholder="" required="required" maxlength="64" style="text-transform: uppercase;">';
+				inyectar+='<div class="row" style="margin-top:15px;">';
+					inyectar+='<div class="col-sm">';
+						inyectar+='<label style="color: #878787;">Correo electrónico</label>';
+						inyectar+='<input type="text" id="correo" name="correo" class="campologin" placeholder="@" required="required" maxlength="64" style="text-transform: lowercase; border: 3px solid #ccc;">';
+					inyectar+='</div>';
+					inyectar+='<div class="col-sm">';
+						inyectar+='<label style="color: #878787;">Número de identificación</label>';						
+						inyectar+='<input type="text" id="identificacion" name="identificacion" class="campologin" placeholder="" required="required"  minlength="6" maxlength="32" style="text-transform: lowercase; border: 3px solid #ccc;">';
+					inyectar+='</div>';				
+				inyectar+='</div>';
 
-			inyectar+='<p>Apellidos <span style="color:blue; font-size:10px;">(Aparecerá en certificados)</span></p>';
-			inyectar+='<input type="text" id="apellidos" name="apellidos" class="campologin" placeholder="" required="required" maxlength="64" style="text-transform: uppercase;">';
-
-			inyectar+='<p>Correo electrónico</p>';
-			inyectar+='<input type="text" id="correo" name="correo" class="campologin" placeholder="" required="required" maxlength="64" style="text-transform: lowercase;">';
-
-			inyectar+='<p>Número de identificación</p>';
-			inyectar+='<input type="text" id="identificacion" name="identificacion" class="campologin" placeholder="" required="required"  minlength="6" maxlength="32" style="text-transform: lowercase;">';
-
-			inyectar+='<p>Ciudad <span style="color:blue; font-size:10px;">(Para las facturas en las compras)</span></p>';
-			inyectar+='<input type="text" id="ciudad" name="ciudad" class="campologin" placeholder="" required="required" maxlength="32" style="text-transform: uppercase;">';
-
-			inyectar+='<p>Dirección <span style="color:blue; font-size:10px;">(Para las facturas en las compras)</span></p>';
-			inyectar+='<input type="text" id="direccion" name="direccion" class="campologin" placeholder="" required="required" maxlength="128" style="text-transform: uppercase;">';
-
-			inyectar+='<p>Teléfono móvil</p>';
-			inyectar+='<input type="text" id="telefono" name="telefono" class="campologin" placeholder="" required="required"  minlength="10" maxlength="10" style="text-transform: lowercase;">';
-
+				inyectar+='<div class="row" style="margin-top:15px;">';
+					inyectar+='<div class="col-sm">';						
+						inyectar+='<label style="color: #878787;">Ciudad <span style="color:red; font-weight:bold;">*<span></label>';
+						inyectar+='<input type="text" id="ciudad" name="ciudad" class="campologin" placeholder="" required="required" maxlength="32" style="text-transform: uppercase; border: 3px solid #ccc;">';
+					inyectar+='</div>';
+					inyectar+='<div class="col-sm">';					
+						inyectar+='<label style="color: #878787;">Dirección <span style="color:red; font-weight:bold;">*<span></label>';
+						inyectar+='<input type="text" id="direccion" name="direccion" class="campologin" placeholder="" required="required" maxlength="128" style="text-transform: uppercase; border: 3px solid #ccc;">';
+					inyectar+='</div>';				
+				inyectar+='</div>';
+			
+				inyectar+='<div class="row" style="margin-top:15px;">';
+					inyectar+='<div class="col-sm">';						
+						inyectar+='<label style="color: #878787;">Teléfono móvil</label>';
+						inyectar+='<input type="text" id="telefono" name="telefono" class="campologin" placeholder="" required="required"  minlength="10" maxlength="10" style="text-transform: lowercase; border: 3px solid #ccc;">';
+					inyectar+='</div>';
+					inyectar+='<div class="col-sm">';					
+						
+					inyectar+='</div>';				
+				inyectar+='</div>';			
+			inyectar+='</div>';
+			
+			
+			
+			
 			inyectar+='<input type="hidden" id="logintoken" name="logintoken" value="<?php echo s(\core\session\manager::get_login_token()); ?>" />';
 			inyectar+='<center><img id="cargangologin" src="<?php echo URLPROYECTO; ?>vistas/pix/cargando.gif" style="margin-top:15px; visibility:hidden;" /></center>';
 			inyectar+='<center><span id="registroerror" class="label-danger" style="display:none;">Error al registrarse, revise los campos.</span></center>';
 		inyectar+='</form>';
-		var pop = new Popup('popup', '', inyectar, 550, 3, false);
+		var pop = new Popup('popup', '', inyectar, 900, 3, false);
 		pop.changeButton(1, 'Cerrar', function(){ pop.cerrar(); });
 		pop.changeButton(2, 'Registrarme', function(){
 
@@ -151,8 +183,8 @@
 			inyectar+='<form id="formlogin" class="signup-form counter_form_content d-flex flex-column align-items-center justify-content-center" action="#" style="margin-bottom:25px;">';
 				//inyectar+='<div class="titulologin colorsecundariofuente" style="margin-top:20px;">Iniciar sesión</div>';
 				inyectar+='<h4>Iniciar sesión</h4><br>';
-				inyectar+='<input type="text" id="username" name="username" class="campologin" placeholder="Nombre de ususario" required="required">';
-				inyectar+='<input type="password" id="password" name="password" class="campologin" placeholder="Contraseña" required="required">';
+				inyectar+='<input type="text" id="username" name="username" class="campologin" placeholder="Nombre de ususario" required="required" style="border: 3px solid #ccc;"><br>';
+				inyectar+='<input type="password" id="password" name="password" class="campologin" placeholder="Contraseña" required="required" style="border: 3px solid #ccc;">';
 				inyectar+='<input type="hidden" id="logintoken" name="logintoken" value="<?php echo s(\core\session\manager::get_login_token()); ?>" />';
 				inyectar+='<div style="width:100%; margin-top:15px; text-align:right; font-size:18px; font-weight:bold;"><a href="<?php echo URLBASE; ?>/login/forgot_password.php?new=true" style="color:<?php if(isset($disenoempresa) && $disenoempresa['colorprincipal']!=''){ echo $disenoempresa['colorprincipal']; }else{ ?>#FF367D;<?php } ?>">Olvidó la contraseña?</a></div>';
 				inyectar+='<center><img id="cargangologin" src="<?php echo URLPROYECTO; ?>vistas/pix/cargando.gif" style="margin-top:15px; visibility:hidden;" /></center>';
