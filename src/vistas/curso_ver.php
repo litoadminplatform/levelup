@@ -292,13 +292,13 @@
 							<div class="course-item">
 								<a href="<?php echo URLBASE; ?>/info/curso/<?php echo $curso['id']; ?>/<?php echo $curso['nombreamigable']; ?>">
 									<div class="course-thumb set-bg" data-setbg="<?php echo ($curso['imagencursopequena']!='') ? URLBASE.$curso['imagencursopequena'] : (($curso['imagencurso']!='') ? URLBASE.$curso['imagencurso'] : URLPROYECTO.'vistas/img/courses/'.rand(1, 8).'.jpg'); ?>">
-										<?php if($curso['precio']!=''){ ?><div class="price">Precio: $<?php echo $curso['precio']; ?></div><?php } ?>
+										<!--<?php if($curso['precio']!=''){ ?><div class="price">Precio: $<?php echo $curso['precio']; ?></div><?php } ?>-->
 									</div>
 								</a>
 								<div class="course-info">
 									<div class="course-text">
 										<h5 style="cursor: pointer;" onclick="abrirUrl('<?php echo URLBASE; ?>/info/curso/<?php echo $curso['id']; ?>/<?php echo $curso['nombreamigable']; ?>', '', false)"><?php echo $curso['fullname']; ?></h5>
-										<p><?php echo $curso['categoria']; ?></p>
+										<p><?php if($curso['precio']!=''){ ?>$<?php echo $curso['precio']; ?> | <?php } ?><?php echo $curso['categoria']; ?></p>
 										<div class="students">Inicia: <?php echo $curso['startdateesp']; ?></div>
 									</div>
 									<?php
