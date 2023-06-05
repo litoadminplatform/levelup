@@ -13,7 +13,7 @@
 			if(is_readable($ruta)){
 				require_once $ruta;
 			}else{
-				echo 'El archivo en autoload no existe: '.$ruta;
+				//echo 'El archivo en autoload no existe: '.$ruta;
 			}
 		}
 	});
