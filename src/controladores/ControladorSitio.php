@@ -307,8 +307,11 @@
 			return $respuesta;
 		}
 
-		public function generarBaseDeDatos(){
-
+		public function generarBaseDeDatos($rol=''){
+			if(!$rol || $rol==''){
+				echo 'Se necesita un rol de postgres que pueda crear las tablas';
+				exit;
+			}
 			//tabla cupones
 			$ejecutar = 'CREATE SEQUENCE public.cupon_id_seq
 				INCREMENT 1
@@ -318,7 +321,7 @@
 				CACHE 1;
 
 			ALTER SEQUENCE public.cupon_id_seq
-				OWNER TO seamitib;
+				OWNER TO '.$rol.';
 
 			CREATE TABLE IF NOT EXISTS public.cuponesdedescuento
 			(
@@ -335,7 +338,7 @@
 			TABLESPACE pg_default;
 
 			ALTER TABLE public.cuponesdedescuento
-				OWNER to seamitib; ';
+				OWNER to '.$rol.'; ';
 
 			//tabla factura
 
@@ -378,11 +381,13 @@
 			)
 			TABLESPACE pg_default;
 
-			ALTER SEQUENCE public.factura_seq OWNER TO seamitib;
+			ALTER SEQUENCE public.factura_seq OWNER TO '.$rol.';
 
 			CREATE INDEX idcurso ON public.factura USING btree (idcurso ASC NULLS LAST) TABLESPACE pg_default;
 			CREATE INDEX idusuario ON public.factura USING btree (idusuario ASC NULLS LAST) TABLESPACE pg_default; ';
-
+	
+			$this->conexion->consultar($ejecutar);
+	
 		}
 
 	}
